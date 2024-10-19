@@ -1,23 +1,20 @@
 import React from 'react'
-const products = [
-  { id: 1, name: 'Aura Imagination', price: 1000 },
-  { id: 2, name: 'Savage Noir', price: 2000 },
-  { id: 3, name: "Man's Collection", price: 3000 },
-  { id: 4, name: 'Crown Aventi', price: 3000 },
-  { id: 5, name: 'Boomshell', price: 1000 },
-  { id: 6, name: 'Blue Deep Horizon', price: 2000 },
-  { id: 7, name: 'Aura Million', price: 3000 },
-  { id: 8, name: 'Blueberry', price: 3000 },
-  { id: 9, name: 'Lush Flora', price: 3000 },
-  { id: 10, name: "Siren's Desire", price: 3000 }
-  //... Add more products here
-]
+import products from './productsList'
 
 const Products = () => {
   return (
-    <div>
-      <h1 className='text-center p-5 text-3xl font-bold'>PRODUCTS</h1>
-      <ul>{}</ul>
+    <div className='mb-[100px]'>
+      <h1 className='text-center p-5 text-6xl font-bold my-[40px] text-yellow-600'>PRODUCTS</h1>
+      <ul className='flex flex-wrap justify-center items-center gap-4'>
+        {products.map(product => (
+          <li key={product.id} className='max-w-[300px] pb-[30px] flex flex-col justify-center items-center shadow-2xl'>
+            <img src={product.image} alt={product.name} />
+            <h2 className='text-center text-3xl'>{product.name}</h2>
+            <p className='text-yellow-500 text-center text-xl font-bold'>{product.price}Rs</p>
+            <button className='bg-black text-white p-1 w-[80%] mt-4'>Add to cart</button>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
