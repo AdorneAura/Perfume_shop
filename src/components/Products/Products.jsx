@@ -5,7 +5,7 @@ import SingleProduct from './SingleProduct'
 const Products = () => {
   return (
     <div className='mb-[100px]'>
-      <h1 className='text-center p-5 text-6xl font-bold my-[40px] text-yellow-600'>
+      <h1 className='text-center p-5 text-6xl font-bold my-[40px] bg-[#800020] text-white'>
         PRODUCTS
       </h1>
       <ul className='flex flex-wrap justify-center items-center gap-4'>
