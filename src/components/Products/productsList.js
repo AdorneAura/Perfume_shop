@@ -11,15 +11,15 @@ import burberry from '../../assets/bottle10.jpg'
 import crownAventis from '../../assets/bottle11.jpg'
 
 export default [
-  { id: 1, name: 'Aura Imagination', price: 1000, image: auraImagination },
-  { id: 2, name: 'Savage Noir', price: 2000, image: savageNoir },
-  { id: 3, name: "Man's Collection", price: 3000, image: mansCollection },
-  { id: 4, name: 'Crown Aventis', price: 3000, image: crownAventis },
-  { id: 5, name: 'Boomshell', price: 1000, image: boomshell },
-  { id: 6, name: 'Blue Deep Horizon', price: 2000, image: blueDeepHorizon },
-  { id: 7, name: 'Aura Million', price: 3000, image: auraMillion },
-  { id: 8, name: 'Burberry', price: 3000, image: burberry },
-  { id: 9, name: 'Lush Flora', price: 3000, image: lushFlora },
-  { id: 10, name: "Siren's Desire", price: 3000, image: sirenDesire },
-  { id: 11, name: "Valentine's", price: 3000, image: valentines }
+  { id: 1, name: 'Aura Imagination', price: 1999, image: auraImagination },
+  { id: 2, name: 'Savage Noir', price: 1999, image: savageNoir },
+  { id: 3, name: "Man's Collection", price: 1999, image: mansCollection },
+  { id: 4, name: 'Crown Aventis', price: 1999, image: crownAventis },
+  { id: 5, name: 'Boomshell', price: 1999, image: boomshell },
+  { id: 6, name: 'Blue Deep Horizon', price: 1999, image: blueDeepHorizon },
+  { id: 7, name: 'Aura Million', price: 1999, image: auraMillion },
+  { id: 8, name: 'Burberry', price: 1999, image: burberry },
+  { id: 9, name: 'Lush Flora', price: 1999, image: lushFlora },
+  { id: 10, name: "Siren's Desire", price: 1999, image: sirenDesire },
+  { id: 11, name: "Valentine's", price: 1999, image: valentines }
 ]
