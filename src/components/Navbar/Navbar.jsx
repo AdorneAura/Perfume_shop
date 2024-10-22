@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../../assets/logo.png'
 import { FaShoppingCart } from 'react-icons/fa'
+import { NavLink } from 'react-router-dom'
 // import navlinks from './navlinks'
 
 const Navbar = () => {
@@ -18,9 +19,9 @@ const Navbar = () => {
           ))
         }
       </ul> */}
-      <a href='/cart' className='text-white text-3xl'>
+      <NavLink to={'/cart'} className='text-white text-3xl'>
         <FaShoppingCart />
-      </a>
+      </NavLink>
     </nav>
   )
 }
