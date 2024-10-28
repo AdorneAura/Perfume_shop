@@ -1,23 +1,13 @@
 import React, { useEffect } from 'react'
-// import products from './productsList'
-// import { getProducts } from '../../controllers/productController'
 import SingleProduct from './SingleProduct'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../../store/products/products'
 
 const Products = () => {
   const products = useSelector(store => store.products.products)
-  console.log(products)
   const dispatch = useDispatch()
 
   const prod = () => {
-    // getProducts()
-    //   .then((pr) => {
-    //     console.log(pr);
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error fetching products:", error);
-    //   });
     dispatch(fetchProducts());
   }
 

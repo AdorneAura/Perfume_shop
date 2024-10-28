@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 // import cartItems from './cartItems'
 import { useSelector } from 'react-redux'
 
 const CartDetails = () => {
   const cartItems = useSelector((store) => store.cart.cart)
+  console.log(cartItems)
+
+  useEffect(() => {
+    
+  }, [])
 
   return (
     <>

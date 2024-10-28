@@ -6,7 +6,7 @@ const Cart = () => {
   return (
     <div className='relative flex flex-col justify-center items-center mb-[50px]'>
         <CartDetails />
-        <BuyerForm />
+        {/* <BuyerForm />
       <div className='flex justify-center gap-[100px]'>
         <button
           type='button'
@@ -20,7 +20,7 @@ const Cart = () => {
         >
           {'Confirm Purchase'}
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }
