@@ -13,7 +13,6 @@ const Products = () => {
 
   useEffect(() =>{
     if(products.length == 0) {
-      console.log(products.length)
       prod()
     }
   }, [products])

@@ -1,14 +1,20 @@
 import React, { useEffect } from 'react'
-// import cartItems from './cartItems'
 import { useSelector } from 'react-redux'
+import { getLocalCart } from '../../utils/cartLocalStorage'
+import { extractProducts } from '../../utils/findProduct'
 
 const CartDetails = () => {
   const cartItems = useSelector((store) => store.cart.cart)
-  console.log(cartItems)
+  const products = useSelector(store => store.products.products)
+
+  const setupCartItems = () => {
+    const lclCartItems = getLocalCart()
+    extractProducts(lclCartItems, products)
+  }
 
   useEffect(() => {
-    
-  }, [])
+    setupCartItems()
+  })
 
   return (
     <>
