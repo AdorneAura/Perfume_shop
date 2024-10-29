@@ -12,7 +12,7 @@ const Cart = () => {
   const prod = () => {
     dispatch(fetchProducts())
   }
-  console.log("before")
+
   useEffect(() => {
     if (products.length == 0) {
       prod()

@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import productsList from '../../components/Products/productsList'
 import { getProducts } from '../../controllers/productController'
 
 const initialState = {
@@ -47,8 +46,3 @@ const productsSlice = createSlice({
 export const { addQuantity, reducerQuantity } = productsSlice.actions
 export default productsSlice.reducer
 
-/*
-  1. Find the target item
-  2. reduce or increase the quantity
-  3. replace it back with the old target item
-*/
