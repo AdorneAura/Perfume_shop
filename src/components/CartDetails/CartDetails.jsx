@@ -55,3 +55,11 @@ const CartDetails = () => {
 }
 
 export default CartDetails
+
+/*
+
+First get the documentId of the product means the inc and dec buttons should have the documentId
+Second find the item details with the documentId in the localStorage and increase it and decrease it
+After increaseing and decreasing the quantity, set it back to local storage
+After extract the products and set back to redux
+*/
