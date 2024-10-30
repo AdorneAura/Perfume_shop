@@ -8,6 +8,7 @@ const Products = () => {
   const dispatch = useDispatch()
 
   const prod = () => {
+    console.log(products.length)
     dispatch(fetchProducts());
   }
 
@@ -15,7 +16,7 @@ const Products = () => {
     if(products.length == 0) {
       prod()
     }
-  }, [products])
+  }, [products.length])
 
   return (
     <div className='mb-[100px]'>
@@ -23,8 +24,8 @@ const Products = () => {
         PRODUCTS
       </h1>
       <ul className='flex flex-wrap justify-center items-center gap-4'>
-        {products.map(product => (
-          <SingleProduct product={product} key={product.id} />
+        {products.map((product, idx) => (
+          <SingleProduct product={product} key={product.id + idx} />
         ))}
       </ul>
     </div>

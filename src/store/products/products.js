@@ -25,8 +25,7 @@ const productsSlice = createSlice({
       const targetItem = state.products.find(
         product => product.documentId == action.payload
       )
-      console.log({...targetItem}, action.payload)
-      targetItem.remaining--
+      targetItem.remaining-=1
     }
   },
   extraReducers: builder => {
