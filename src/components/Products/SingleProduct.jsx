@@ -22,7 +22,6 @@ const SingleProduct = ({ product }) => {
     setLocalCart(item)
     const productToRedux = findProductById(item.id, ps)
     dispatch(addToCart(productToRedux))
-    dispatch(reduceQuantity(item.id))
   }
 
   const remainingProds = () => {
