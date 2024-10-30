@@ -3,6 +3,7 @@ import { setLocalCart } from '../../utils/cartLocalStorage'
 import { findProductById } from '../../utils/findProduct'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../store/cart/cart'
+import { reduceQuantity } from '../../store/products/products'
 
 const SingleProduct = ({ product }) => {
   const dispatch = useDispatch()
@@ -13,6 +14,7 @@ const SingleProduct = ({ product }) => {
     setLocalCart(item)
     const productToRedux = findProductById(item.id, ps)
     dispatch(addToCart(productToRedux))
+    dispatch(reduceQuantity(item.id))
   }
   return (
     <li className='max-w-[300px] pb-[30px] flex flex-col justify-center items-center shadow-2xl'>

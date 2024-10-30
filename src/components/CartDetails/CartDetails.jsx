@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getLocalCart, setLocalCart } from '../../utils/cartLocalStorage'
-import { extractProducts, findProductById } from '../../utils/findProduct'
+import { extractProducts } from '../../utils/findProduct'
 import { increaseQuantity, decreaseQuantity, populateCart } from '../../store/cart/cart'
 
 const CartDetails = () => {
@@ -17,7 +17,6 @@ const CartDetails = () => {
     const item = {id, quantity}
     setLocalCart(item)
     dispatch((innerHTML == '+') ? increaseQuantity(item) : decreaseQuantity(item))
-
   }
 
   const setupCartItems = () => {
@@ -69,11 +68,3 @@ const CartDetails = () => {
 }
 
 export default CartDetails
-
-/*
-
-First get the documentId of the product means the inc and dec buttons should have the documentId
-Second find the item details with the documentId in the localStorage and increase it and decrease it
-After increaseing and decreasing the quantity, set it back to local storage
-After extract the products and set back to redux
-*/

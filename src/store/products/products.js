@@ -17,15 +17,16 @@ const productsSlice = createSlice({
   reducers: {
     addQuantity: (state, action) => {
       const targetItem = state.products.find(
-        product => product.id == action.payload
+        product => product.id == action.payload.id
       )
-      return targetItem
+      targetItem.remaining++
     },
-    reducerQuantity: state => {
+    reduceQuantity: (state, action) => {
       const targetItem = state.products.find(
-        product => product.id == action.payload
+        product => product.documentId == action.payload
       )
-      return targetItem
+      console.log({...targetItem}, action.payload)
+      targetItem.remaining--
     }
   },
   extraReducers: builder => {
@@ -43,6 +44,5 @@ const productsSlice = createSlice({
   }
 })
 
-export const { addQuantity, reducerQuantity } = productsSlice.actions
+export const { addQuantity, reduceQuantity } = productsSlice.actions
 export default productsSlice.reducer
-
