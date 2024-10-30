@@ -1,14 +1,24 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getLocalCart } from '../../utils/cartLocalStorage'
-import { extractProducts } from '../../utils/findProduct'
-import { populateCart } from '../../store/cart/cart'
+import { getLocalCart, setLocalCart } from '../../utils/cartLocalStorage'
+import { extractProducts, findProductById } from '../../utils/findProduct'
+import { increaseQuantity, decreaseQuantity, populateCart } from '../../store/cart/cart'
 
 const CartDetails = () => {
   const cartItems = useSelector(store => store.cart.cart)
   const products = useSelector(store => store.products.products)
 
   const dispatch = useDispatch()
+
+  const handleItemCounter = (e) => {
+    const {id, innerHTML} = e.target
+    let quantity
+    (innerHTML == '-') ? quantity = -1 : quantity = +1
+    const item = {id, quantity}
+    setLocalCart(item)
+    dispatch((innerHTML == '+') ? increaseQuantity(item) : decreaseQuantity(item))
+
+  }
 
   const setupCartItems = () => {
     const lclCartItems = getLocalCart()
@@ -32,6 +42,8 @@ const CartDetails = () => {
               <button
                 type='button'
                 className='bg-black text-white text-lg font-bold w-[30px] h-[30px]'
+                id={item.documentId}
+                onClick={handleItemCounter}
               >
                 -
               </button>
@@ -39,6 +51,8 @@ const CartDetails = () => {
               <button
                 type='button'
                 className='bg-black text-white text-lg font-bold w-[30px] h-[30px]'
+                id={item.documentId}
+                onClick={handleItemCounter}
               >
                 +
               </button>
