@@ -8,9 +8,8 @@ import {
   populateCart
 } from '../../store/cart/cart'
 
-const CartDetails = () => {
+const CartDetails = ({products}) => {
   const cartItems = useSelector(store => store.cart.cart)
-  const products = useSelector(store => store.products.products)
 
   const dispatch = useDispatch()
   const renderCount = useRef(0)
