@@ -4,7 +4,7 @@ const SingleCartItemBtn = ({id, text, handleItemCounter, disabled}) => {
   return (
     <button
       type='button'
-      className='bg-black text-white text-lg font-bold w-[30px] h-[30px]'
+      className={`bg-${disabled ? 'red-500' : 'black'} text-white text-lg font-bold w-[30px] h-[30px]`}
       id={id}
       onClick={handleItemCounter}
       disabled={disabled}
