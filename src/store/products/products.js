@@ -23,9 +23,10 @@ const productsSlice = createSlice({
     },
     reduceQuantity: (state, action) => {
       const targetItem = state.products.find(
-        product => product.documentId == action.payload
+        product => product.documentId == action.payload.id
       )
-      targetItem.remaining-=1
+      console.log({...targetItem})
+      targetItem.remaining = +targetItem.remaining - action.payload.quantity
     }
   },
   extraReducers: builder => {
