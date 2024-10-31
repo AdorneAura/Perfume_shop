@@ -1,8 +1,7 @@
 import React from 'react'
 import SingleCartItemBtn from './SingleCartItemBtn'
 
-const SingleCartItem = ({item, handleItemCounter}) => {
-  console.log(item)
+const SingleCartItem = ({ item, handleItemCounter }) => {
   return (
     <li
       key={item.documentId}
@@ -11,7 +10,7 @@ const SingleCartItem = ({item, handleItemCounter}) => {
       <img src={item.imgUrl} alt={item.title} className='w-20' />
       <h3 className='min-w-[50px]'>{item.title}</h3>
       <p>Price: {item.price}</p>
-      <span>Remaining: {item.remaining-item.quantity}</span>
+      <span>Remaining: {item.remaining - item.quantity}</span>
       <div className='flex gap-2 justify-center items-center'>
         <SingleCartItemBtn
           id={item.documentId}
@@ -24,7 +23,7 @@ const SingleCartItem = ({item, handleItemCounter}) => {
           id={item.documentId}
           text={'+'}
           handleItemCounter={handleItemCounter}
-          disabled={+item.remaining-item.quantity === 0}
+          disabled={+item.remaining - item.quantity === 0}
         />
       </div>
     </li>
