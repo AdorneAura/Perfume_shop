@@ -2,6 +2,7 @@ import React from 'react'
 import SingleCartItemBtn from './SingleCartItemBtn'
 
 const SingleCartItem = ({item, handleItemCounter}) => {
+  console.log(item)
   return (
     <li
       key={item.documentId}
@@ -23,7 +24,7 @@ const SingleCartItem = ({item, handleItemCounter}) => {
           id={item.documentId}
           text={'+'}
           handleItemCounter={handleItemCounter}
-          disabled={item.remaining === 0}
+          disabled={+item.remaining-item.quantity === 0}
         />
       </div>
     </li>
