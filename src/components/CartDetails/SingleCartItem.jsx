@@ -5,12 +5,12 @@ const SingleCartItem = ({ item, handleItemCounter }) => {
   return (
     <li
       key={item.documentId}
-      className='flex justify-center items-center gap-4'
+      className='flex justify-center border items-center gap-4'
     >
       <img src={item.imgUrl} alt={item.title} className='w-20' />
-      <h3 className='min-w-[50px]'>{item.title}</h3>
-      <p>Price: {item.price}</p>
-      <div className=''>
+      <h3 className='w-[100px]'>{item.title}</h3>
+      <p className='w-[100px]'>Price: {item.price}</p>
+      <div className='w-[100px]'>
         <div className='flex gap-2 justify-center items-center'>
           <SingleCartItemBtn
             id={item.documentId}

@@ -39,7 +39,7 @@ const CartDetails = ({ products }) => {
 
   return (
     <>
-      <ul className='flex flex-col justify-center items-center h-screen sm-w-[300px] mt-[160px] mb-[150px]'>
+      <ul className='flex flex-col justify-center items-start h-screen sm-w-[300px] mt-[60px] mb-[150px] gap-4'>
         {cartItems.map(item => {
           return (
             <SingleCartItem
@@ -49,7 +49,7 @@ const CartDetails = ({ products }) => {
             />
           )
         })}
-        <li>
+        <li className='self-end font-bold'>
           Total:{' '}
           {cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)}
         </li>

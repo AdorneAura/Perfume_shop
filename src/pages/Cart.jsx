@@ -21,11 +21,12 @@ const Cart = () => {
     }
   }, [products])
   return (
-    <div className='relative flex flex-col justify-center items-center mb-[50px]'>
+    <div className='relative flex justify-center items-start mb-[50px] gap-10'>
       {products.length > 0 ? (
         <>
           <CartDetails products={products} />
-          <BuyerForm />
+          <div>
+            <BuyerForm />
             <div className='flex justify-center gap-[100px]'>
               <button
                 type='button'
@@ -40,6 +41,7 @@ const Cart = () => {
                 {'Confirm Purchase'}
               </button>
             </div>
+          </div>
         </>
       ) : (
         <p>Loading...</p>
