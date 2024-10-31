@@ -7,8 +7,9 @@ import {
   decreaseQuantity,
   populateCart
 } from '../../store/cart/cart'
+import SingleCartItem from './SingleCartItem'
 
-const CartDetails = ({products}) => {
+const CartDetails = ({ products }) => {
   const cartItems = useSelector(store => store.cart.cart)
 
   const dispatch = useDispatch()
@@ -40,33 +41,11 @@ const CartDetails = ({products}) => {
     <>
       <ul className='flex flex-col justify-center items-center h-screen sm-w-[300px] mt-[160px] mb-[150px]'>
         {cartItems.map(item => (
-          <li
+          <SingleCartItem
             key={item.documentId}
-            className='flex justify-center items-center gap-4'
-          >
-            <img src={item.imgUrl} alt={item.title} className='w-20' />
-            <h3 className='min-w-[50px]'>{item.title}</h3>
-            <p>Price: {item.price}</p>
-            <div className='flex gap-2 justify-center items-center'>
-              <button
-                type='button'
-                className='bg-black text-white text-lg font-bold w-[30px] h-[30px]'
-                id={item.documentId}
-                onClick={handleItemCounter}
-              >
-                -
-              </button>
-              <p>{item.quantity}</p>
-              <button
-                type='button'
-                className='bg-black text-white text-lg font-bold w-[30px] h-[30px]'
-                id={item.documentId}
-                onClick={handleItemCounter}
-              >
-                +
-              </button>
-            </div>
-          </li>
+            item={item}
+            handleItemCounter={handleItemCounter}
+          />
         ))}
         <li>
           Total:{' '}

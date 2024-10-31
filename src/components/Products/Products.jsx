@@ -9,15 +9,12 @@ const Products = () => {
   const dispatch = useDispatch()
   const renderCount = useRef(0)
 
-  console.log(products)
-
   const prod = () => {
     dispatch(fetchProducts())
   }
 
   useEffect(() => {
     if (renderCount.current == 0 && products.length < 1) {
-      console.log('Fired')
       prod()
       renderCount.current += 1
     }
