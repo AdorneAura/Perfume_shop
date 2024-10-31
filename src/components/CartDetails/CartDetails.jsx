@@ -40,13 +40,15 @@ const CartDetails = ({ products }) => {
   return (
     <>
       <ul className='flex flex-col justify-center items-center h-screen sm-w-[300px] mt-[160px] mb-[150px]'>
-        {cartItems.map(item => (
-          <SingleCartItem
-            key={item.documentId}
-            item={item}
-            handleItemCounter={handleItemCounter}
-          />
-        ))}
+        {cartItems.map(item => {
+          return (
+            <SingleCartItem
+              key={item.documentId}
+              item={item}
+              handleItemCounter={handleItemCounter}
+            />
+          )
+        })}
         <li>
           Total:{' '}
           {cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)}
