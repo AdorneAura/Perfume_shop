@@ -24,7 +24,6 @@ const SingleProduct = ({ product }) => {
   const handleRemItems = () => {
     const localCartProducts = getLocalCart() || []
     const qty = (localCartProducts.filter(p => p.id == product.documentId))
-    console.log(qty[0]?.quantity || 0)
     setProductRem(qty[0]?.quantity || 0)
   }
 
