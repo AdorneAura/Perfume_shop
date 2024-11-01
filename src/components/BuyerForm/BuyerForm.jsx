@@ -77,6 +77,7 @@ const BuyerForm = ({ products }) => {
         placeholder='Full Name'
         name='full_name'
         onChange={handleInput}
+        required
       />
       <input
         className='w-[300px] border p-2'
@@ -84,6 +85,7 @@ const BuyerForm = ({ products }) => {
         placeholder='Phone No.'
         name='phone_no'
         onChange={handleInput}
+        required
       />
       <input
         className='w-[300px] border p-2'
@@ -91,6 +93,7 @@ const BuyerForm = ({ products }) => {
         placeholder='Email'
         name='email'
         onChange={handleInput}
+        required
       />
       <input
         className='w-[300px] border p-2'
@@ -98,6 +101,7 @@ const BuyerForm = ({ products }) => {
         placeholder='House or Flat No.'
         name='house_no'
         onChange={handleInput}
+        required
       />
       <input
         className='w-[300px] border p-2'
@@ -105,6 +109,7 @@ const BuyerForm = ({ products }) => {
         placeholder='Street'
         name='street'
         onChange={handleInput}
+        required
       />
       <input
         className='w-[300px] border p-2'
@@ -112,6 +117,7 @@ const BuyerForm = ({ products }) => {
         placeholder='City'
         name='city'
         onChange={handleInput}
+        required
       />
       <input
         className='w-[300px] border p-2'
@@ -119,6 +125,7 @@ const BuyerForm = ({ products }) => {
         placeholder='Country'
         name='country'
         onChange={handleInput}
+        required
       />
       <ul className='px-1'>
         <li>
