@@ -7,20 +7,24 @@ export const findProductById = (id, products) => {
 export const extractProducts = (localStorageCartItems, products) => {
   const extractedProducts = [
     ...localStorageCartItems.map(i => {
-        const product = findProductById(i.id, products)
-        return {...product, quantity: i.quantity }
+      const product = findProductById(i.id, products)
+      return { ...product, quantity: i.quantity }
     })
   ]
-  return extractedProducts;
+  return extractedProducts
 }
 
 export const updateRemainingQuantities = (cartItems, productList) => {
-  const updatedProductList = productList.map(product => ({ ...product }));
+  const updatedProductList = productList.map(product => ({ ...product }))
   cartItems.forEach(cartItem => {
-      const matchingProduct = updatedProductList.find(product => product.documentId === cartItem.id);
-      if (matchingProduct) {
-          matchingProduct.remaining = String(Math.max(0, Number(matchingProduct.remaining) - cartItem.quantity));
-      }
-  });
-  return updatedProductList;
+    const matchingProduct = updatedProductList.find(
+      product => product.documentId === cartItem.id
+    )
+    if (matchingProduct) {
+      matchingProduct.remaining = String(
+        Math.max(0, Number(matchingProduct.remaining) - cartItem.quantity)
+      )
+    }
+  })
+  return updatedProductList
 }

@@ -28,7 +28,7 @@ const productsSlice = createSlice({
       const targetItem = state.products.find(
         product => product.documentId == action.payload.id
       )
-      console.log({...targetItem})
+      console.log({ ...targetItem })
       targetItem.remaining = +targetItem.remaining - action.payload.quantity
     }
   },
@@ -47,5 +47,6 @@ const productsSlice = createSlice({
   }
 })
 
-export const { addUpdatedList, addQuantity, reduceQuantity } = productsSlice.actions
+export const { addUpdatedList, addQuantity, reduceQuantity } =
+  productsSlice.actions
 export default productsSlice.reducer

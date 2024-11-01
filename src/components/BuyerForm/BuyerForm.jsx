@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { filterKeyValuePairs } from '../../utils/commonFun'
 import { OrderController } from '../../controllers/orderController'
-import { useNavigate } from'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { clearLocStore, getLocalCart } from '../../utils/cartLocalStorage'
 import { updateRemainingQuantities } from '../../utils/findProduct'
 import { addUpdatedList } from '../../store/products/products'
 
-const BuyerForm = ({products}) => {
+const BuyerForm = ({ products }) => {
   const cart = useSelector(store => store.cart.cart)
 
   const [userInfo, setUserInfo] = useState({
@@ -26,7 +26,11 @@ const BuyerForm = ({products}) => {
 
   const handleForm = async e => {
     e.preventDefault()
-    const filteredProducts = filterKeyValuePairs(cart, ['documentId', 'title', 'quantity'])
+    const filteredProducts = filterKeyValuePairs(cart, [
+      'documentId',
+      'title',
+      'quantity'
+    ])
     const data = {
       data: {
         full_name: userInfo.full_name,
@@ -38,8 +42,11 @@ const BuyerForm = ({products}) => {
     }
 
     const result = await OrderController.createOrder(data)
-    if(result.status === 201) {
-      const updatedProductList = updateRemainingQuantities(getLocalCart(), products)
+    if (result.status === 201) {
+      const updatedProductList = updateRemainingQuantities(
+        getLocalCart(),
+        products
+      )
       dispatch(addUpdatedList(updatedProductList))
       clearLocStore()
       navigate('/success')
@@ -136,33 +143,3 @@ const BuyerForm = ({products}) => {
 }
 
 export default BuyerForm
-
-
-/* 
-[
-    {
-        "id": "r5a4ace87kery5mhrgwsof4y",
-        "quantity": 3
-    },
-    {
-        "id": "d9f8v8ay1chdnsp42do3iemw",
-        "quantity": 3
-    },
-    {
-        "id": "akhzyukj4k81onxq95tqujxy",
-        "quantity": 6
-    },
-    {
-        "id": "yuwrsgcwbh2pu0lltroi84vb",
-        "quantity": 3
-    },
-    {
-        "id": "zt0ymvgbyae54scqwe6kqj49",
-        "quantity": 5
-    },
-    {
-        "id": "o10tmz0o9etrip7xsm5h87mq",
-        "quantity": 3
-    }
-]
-*/
