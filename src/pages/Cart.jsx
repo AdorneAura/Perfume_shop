@@ -30,8 +30,8 @@ const Cart = () => {
       <div className='relative flex justify-center items-start mb-[50px] gap-10'>
         {products.length > 0 ? (
           <>
-            <CartDetails products={products} />
             <BuyerForm products={products} />
+            <CartDetails products={products} />
           </>
         ) : (
           <p>Loading...</p>

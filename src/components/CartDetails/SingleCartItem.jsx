@@ -11,7 +11,7 @@ const SingleCartItem = ({ item, handleItemCounter }) => {
       <h3 className='w-[100px]'>{item.title}</h3>
       <p className='w-[100px]'>Price: {item.price}</p>
       <div className='w-[100px]'>
-        <div className='flex gap-2 justify-center items-center'>
+        <div className='flex gap-2'>
           <SingleCartItemBtn
             id={item.documentId}
             text={'-'}

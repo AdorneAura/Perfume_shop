@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { filterKeyValuePairs } from '../../utils/commonFun'
 import { OrderController } from '../../controllers/orderController'
 import { useNavigate } from'react-router-dom'
-import { getLocalCart } from '../../utils/cartLocalStorage'
+import { clearLocStore, getLocalCart } from '../../utils/cartLocalStorage'
 import { updateRemainingQuantities } from '../../utils/findProduct'
 import { addUpdatedList } from '../../store/products/products'
 
@@ -24,7 +24,7 @@ const BuyerForm = ({products}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleForm = e => {
+  const handleForm = async e => {
     e.preventDefault()
     const filteredProducts = filterKeyValuePairs(cart, ['documentId', 'title', 'quantity'])
     const data = {
@@ -37,12 +37,13 @@ const BuyerForm = ({products}) => {
       }
     }
 
-    const updatedProductList = updateRemainingQuantities(getLocalCart(), products)
-    dispatch(addUpdatedList(updatedProductList))
-    // const result = await OrderController.createOrder(data)
-    // if(result.status === 201) {
-    //   navigate('/success')
-    // }
+    const result = await OrderController.createOrder(data)
+    if(result.status === 201) {
+      const updatedProductList = updateRemainingQuantities(getLocalCart(), products)
+      dispatch(addUpdatedList(updatedProductList))
+      clearLocStore()
+      navigate('/success')
+    }
   }
 
   const handleInput = e => {
