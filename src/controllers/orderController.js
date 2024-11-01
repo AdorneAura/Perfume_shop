@@ -1,21 +1,16 @@
 import { API_TOKEN, BASE_URL } from '../Config'
+import axios from 'axios'
 
 export class OrderController {
-  static createOrder (data) {
-    return axios
+  static async createOrder (data) {
+    return await axios
       .post(`${BASE_URL}/api/orders/`, data, {
         headers: {
           Authorization: `Bearer ${API_TOKEN}`
         }
       })
-      .then(res => {
-        if (res?.data?.success) {
-          return res?.data
-        }
-      })
-      .catch(err => {
-        return err
-      })
+      .then(res => res)
+      .catch(err => err)
   }
 
   static updateProductQuantity (data) {

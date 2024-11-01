@@ -4,6 +4,7 @@ import BuyerForm from '../components/BuyerForm/BuyerForm'
 import { extractProducts } from '../utils/findProduct'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../store/products/products'
+import Navbar from '../components/Navbar/Navbar'
 
 const Cart = () => {
   const products = useSelector(store => store.products.products)
@@ -21,32 +22,33 @@ const Cart = () => {
     }
   }, [products])
   return (
-    <div className='relative flex justify-center items-start mb-[50px] gap-10'>
-      {products.length > 0 ? (
-        <>
-          <CartDetails products={products} />
-          <div>
-            <BuyerForm />
-            <div className='flex justify-center gap-[100px]'>
-              <button
-                type='button'
-                className='bg-black text-white font-bold text-xl w-[100px] h-[40px] rounded'
-              >
-                {'Back'}
-              </button>
-              <button
-                type='button'
-                className='bg-black text-white font-bold text-sm w-[100px] h-[40px] rounded'
-              >
-                {'Confirm Purchase'}
-              </button>
+    <>
+      <Navbar />
+      <h1 className='flex justify-evenly text-xl'>
+        <span>YOUR ITEMS</span>
+        <span>PLEASE INSERT DETAILS</span>
+      </h1>
+      <div className='relative flex justify-center items-start mb-[50px] gap-10'>
+        {products.length > 0 ? (
+          <>
+            <CartDetails products={products} />
+            <div>
+              <BuyerForm />
+              <div className='flex justify-center gap-[100px]'>
+                <button
+                  type='button'
+                  className='bg-black text-white font-bold text-xl w-[100px] h-[40px] rounded'
+                >
+                  {'Back'}
+                </button>
+              </div>
             </div>
-          </div>
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+          </>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
+    </>
   )
 }
 
