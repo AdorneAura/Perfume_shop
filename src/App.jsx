@@ -4,7 +4,7 @@ import Home from './pages/Home'
 import Cart from './pages/Cart'
 import Success from './pages/Success'
 
-function App () {
+const App = () => {
   return (
     <Routes>
       <Route path='/' element={<Home />} />

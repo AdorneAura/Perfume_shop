@@ -1,4 +1,4 @@
-export const getLocalCart = () => JSON.parse(localStorage.getItem('cartItems'))
+export const getLocalCart = () => JSON.parse(localStorage.getItem('cartItems')) || []
 
 export const setLocalCart = item => {
   let cartItems = getLocalCart() || []
@@ -12,3 +12,5 @@ export const setLocalCart = item => {
   }
   localStorage.setItem('cartItems', JSON.stringify(cartItems))
 }
+
+export const clearLocStore = item => localStorage.clear()

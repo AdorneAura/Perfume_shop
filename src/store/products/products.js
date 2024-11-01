@@ -15,6 +15,9 @@ const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
+    addUpdatedList: (state, action) => {
+      state.products = action.payload
+    },
     addQuantity: (state, action) => {
       const targetItem = state.products.find(
         product => product.id == action.payload.id
@@ -44,5 +47,5 @@ const productsSlice = createSlice({
   }
 })
 
-export const { addQuantity, reduceQuantity } = productsSlice.actions
+export const { addUpdatedList, addQuantity, reduceQuantity } = productsSlice.actions
 export default productsSlice.reducer

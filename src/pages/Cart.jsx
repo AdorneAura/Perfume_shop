@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import CartDetails from '../components/CartDetails/CartDetails'
 import BuyerForm from '../components/BuyerForm/BuyerForm'
-import { extractProducts } from '../utils/findProduct'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../store/products/products'
 import Navbar from '../components/Navbar/Navbar'
@@ -32,17 +31,7 @@ const Cart = () => {
         {products.length > 0 ? (
           <>
             <CartDetails products={products} />
-            <div>
-              <BuyerForm />
-              <div className='flex justify-center gap-[100px]'>
-                <button
-                  type='button'
-                  className='bg-black text-white font-bold text-xl w-[100px] h-[40px] rounded'
-                >
-                  {'Back'}
-                </button>
-              </div>
-            </div>
+            <BuyerForm products={products} />
           </>
         ) : (
           <p>Loading...</p>

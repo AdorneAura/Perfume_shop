@@ -13,3 +13,14 @@ export const extractProducts = (localStorageCartItems, products) => {
   ]
   return extractedProducts;
 }
+
+export const updateRemainingQuantities = (cartItems, productList) => {
+  const updatedProductList = productList.map(product => ({ ...product }));
+  cartItems.forEach(cartItem => {
+      const matchingProduct = updatedProductList.find(product => product.documentId === cartItem.id);
+      if (matchingProduct) {
+          matchingProduct.remaining = String(Math.max(0, Number(matchingProduct.remaining) - cartItem.quantity));
+      }
+  });
+  return updatedProductList;
+}

@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { filterKeyValuePairs } from '../../utils/commonFun'
 import { OrderController } from '../../controllers/orderController'
 import { useNavigate } from'react-router-dom'
+import { getLocalCart } from '../../utils/cartLocalStorage'
+import { updateRemainingQuantities } from '../../utils/findProduct'
+import { addUpdatedList } from '../../store/products/products'
 
-const BuyerForm = () => {
+const BuyerForm = ({products}) => {
   const cart = useSelector(store => store.cart.cart)
 
   const [userInfo, setUserInfo] = useState({
@@ -18,9 +21,10 @@ const BuyerForm = () => {
     save_billing_address: false
   })
 
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const handleForm = async e => {
+  const handleForm = e => {
     e.preventDefault()
     const filteredProducts = filterKeyValuePairs(cart, ['documentId', 'title', 'quantity'])
     const data = {
@@ -32,10 +36,13 @@ const BuyerForm = () => {
         ordered_items: filteredProducts
       }
     }
-    const result = await OrderController.createOrder(data)
-    if(result.status === 201) {
-      navigate('/success')
-    }
+
+    const updatedProductList = updateRemainingQuantities(getLocalCart(), products)
+    dispatch(addUpdatedList(updatedProductList))
+    // const result = await OrderController.createOrder(data)
+    // if(result.status === 201) {
+    //   navigate('/success')
+    // }
   }
 
   const handleInput = e => {
@@ -128,3 +135,33 @@ const BuyerForm = () => {
 }
 
 export default BuyerForm
+
+
+/* 
+[
+    {
+        "id": "r5a4ace87kery5mhrgwsof4y",
+        "quantity": 3
+    },
+    {
+        "id": "d9f8v8ay1chdnsp42do3iemw",
+        "quantity": 3
+    },
+    {
+        "id": "akhzyukj4k81onxq95tqujxy",
+        "quantity": 6
+    },
+    {
+        "id": "yuwrsgcwbh2pu0lltroi84vb",
+        "quantity": 3
+    },
+    {
+        "id": "zt0ymvgbyae54scqwe6kqj49",
+        "quantity": 5
+    },
+    {
+        "id": "o10tmz0o9etrip7xsm5h87mq",
+        "quantity": 3
+    }
+]
+*/
