@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { filterKeyValuePairs } from '../../utils/commonFun'
 import { OrderController } from '../../controllers/orderController'
@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { clearLocStore, getLocalCart } from '../../utils/cartLocalStorage'
 import { updateRemainingQuantities } from '../../utils/findProduct'
 import { addUpdatedList } from '../../store/products/products'
+import emailjs from '@emailjs/browser'
 
 const BuyerForm = ({ products }) => {
   const cart = useSelector(store => store.cart.cart)
@@ -23,6 +24,7 @@ const BuyerForm = ({ products }) => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const form = useRef()
 
   const handleForm = async e => {
     e.preventDefault()
@@ -43,13 +45,24 @@ const BuyerForm = ({ products }) => {
 
     const result = await OrderController.createOrder(data)
     if (result.status === 201) {
-      const updatedProductList = updateRemainingQuantities(
-        getLocalCart(),
-        products
-      )
-      dispatch(addUpdatedList(updatedProductList))
-      clearLocStore()
-      navigate('/success')
+      emailjs
+        .sendForm('service_ps4kang', 'template_hk7guyr', form.current, {
+          publicKey: 'uIy-8GW2FoOUjfP2m'
+        })
+        .then(
+          () => {
+            const updatedProductList = updateRemainingQuantities(
+              getLocalCart(),
+              products
+            )
+            dispatch(addUpdatedList(updatedProductList))
+            clearLocStore()
+            navigate('/success')
+          },
+          error => {
+            console.log('FAILED...', error.text)
+          }
+        )
     }
   }
 
@@ -68,6 +81,7 @@ const BuyerForm = ({ products }) => {
 
   return (
     <form
+      ref={form}
       onSubmit={handleForm}
       className='flex flex-col gap-5 justify-center my-[60px] bg-black p-[40px]'
     >
