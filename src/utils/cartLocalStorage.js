@@ -14,4 +14,11 @@ export const setLocalCart = item => {
   localStorage.setItem('cartItems', JSON.stringify(cartItems))
 }
 
+export const removeCartItem = (id) => {
+  let cartItems = getLocalCart() || []
+  const updatedCartItems = cartItems.filter(item => item.id !== id)
+  localStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+  return id
+}
+
 export const clearLocStore = item => localStorage.clear()
