@@ -23,28 +23,33 @@ const SingleProduct = ({ product }) => {
 
   const handleRemItems = () => {
     const localCartProducts = getLocalCart() || []
-    const qty = (localCartProducts.filter(p => p.id == product.documentId))
+    const qty = localCartProducts.filter(p => p.id == product.documentId)
     setProductRem(qty[0]?.quantity || 0)
   }
 
   useEffect(() => {
-    if(countRender.current === 0) {
+    if (countRender.current === 0) {
       handleRemItems()
-      countRender.current+=1
+      countRender.current += 1
     }
   }, [])
   return (
     <li className='max-w-[300px] pb-[30px] flex flex-col justify-center items-center shadow-2xl'>
       <img src={product.imgUrl} alt={product.title} className='mb-[10px]' />
       <h2 className='text-center text-3xl'>{product.title}</h2>
-      <p className='text-yellow-500 text-xl font-bold'>{product.price}Rs</p>
+      <div className='flex items-end gap-3'>
+        {product.oldPrice > 0 && <span className='text-red-600 line-through'>{product.oldPrice}Rs</span>}
+        <p className='text-yellow-500 text-xl font-bold'>{product.price}Rs</p>
+      </div>
       <span>Remaining: {product.remaining - productRem}</span>
       <button
-        className={`bg-${(product.remaining - productRem) > 0 ? 'black' : 'red-500'} text-white p-1 w-[80%] mt-4`}
+        className={`bg-${
+          product.remaining - productRem > 0 ? 'black' : 'red-500'
+        } text-white p-1 w-[80%] mt-4`}
         onClick={addProductToCart}
-        disabled={(product.remaining - productRem) > 0 ? false : true}
+        disabled={product.remaining - productRem > 0 ? false : true}
       >
-        {(product.remaining - productRem) > 0 ? 'Add to cart' : 'Out of Stock'}
+        {product.remaining - productRem > 0 ? 'Add to cart' : 'Out of Stock'}
       </button>
     </li>
   )
