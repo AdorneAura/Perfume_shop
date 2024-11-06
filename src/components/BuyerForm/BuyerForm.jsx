@@ -86,89 +86,91 @@ const BuyerForm = ({ products }) => {
 
   return (
     <>
-      <form
-        ref={form}
-        onSubmit={handleForm}
-        className='flex flex-col gap-5 justify-center my-[60px] bg-black p-[40px]'
-      >
-        <input
-          className='w-[300px] border p-2'
-          type='text'
-          placeholder='Full Name'
-          name='full_name'
-          onChange={handleInput}
-          required
-        />
-        <input
-          className='w-[300px] border p-2'
-          type='text'
-          placeholder='Phone No.'
-          name='phone_no'
-          onChange={handleInput}
-          required
-        />
-        <input
-          className='w-[300px] border p-2'
-          type='email'
-          placeholder='Email'
-          name='email'
-          onChange={handleInput}
-          required
-        />
-        <input
-          className='w-[300px] border p-2'
-          type='text'
-          placeholder='House or Flat No.'
-          name='house_no'
-          onChange={handleInput}
-          required
-        />
-        <input
-          className='w-[300px] border p-2'
-          type='text'
-          placeholder='Street'
-          name='street'
-          onChange={handleInput}
-          required
-        />
-        <input
-          className='w-[300px] border p-2'
-          type='text'
-          placeholder='City'
-          name='city'
-          onChange={handleInput}
-          required
-        />
-        <input
-          className='w-[300px] border p-2'
-          type='text'
-          placeholder='Country'
-          name='country'
-          onChange={handleInput}
-          required
-        />
-        <ul className='px-1'>
-          <li>
-            <span className='text-white'>Wanna save address?</span>
-          </li>
-          <li>
-            <input
-              className='p-2'
-              type='checkbox'
-              onChange={saveBillingAddress}
-            />
-          </li>
-        </ul>
-        <button
-          type='submit'
-          className='bg-black text-white hover:bg-white hover:text-black border border-2 font-bold text-sm h-[40px] rounded'
+      {cart.length > 0 ? (
+        <form
+          ref={form}
+          onSubmit={handleForm}
+          className='flex flex-col gap-5 justify-center my-[60px] bg-black p-[40px]'
         >
-          {'Confirm Purchase'}
-        </button>
-      </form>
-      {
-        loading && <PurchaseLoader />
-      }
+          <input
+            className='w-[300px] border p-2'
+            type='text'
+            placeholder='Full Name'
+            name='full_name'
+            onChange={handleInput}
+            required
+          />
+          <input
+            className='w-[300px] border p-2'
+            type='text'
+            placeholder='Phone No.'
+            name='phone_no'
+            onChange={handleInput}
+            required
+          />
+          <input
+            className='w-[300px] border p-2'
+            type='email'
+            placeholder='Email'
+            name='email'
+            onChange={handleInput}
+            required
+          />
+          <input
+            className='w-[300px] border p-2'
+            type='text'
+            placeholder='House or Flat No.'
+            name='house_no'
+            onChange={handleInput}
+            required
+          />
+          <input
+            className='w-[300px] border p-2'
+            type='text'
+            placeholder='Street'
+            name='street'
+            onChange={handleInput}
+            required
+          />
+          <input
+            className='w-[300px] border p-2'
+            type='text'
+            placeholder='City'
+            name='city'
+            onChange={handleInput}
+            required
+          />
+          <input
+            className='w-[300px] border p-2'
+            type='text'
+            placeholder='Country'
+            name='country'
+            onChange={handleInput}
+            required
+          />
+          <ul className='px-1'>
+            <li>
+              <span className='text-white'>Wanna save address?</span>
+            </li>
+            <li>
+              <input
+                className='p-2'
+                type='checkbox'
+                onChange={saveBillingAddress}
+              />
+            </li>
+          </ul>
+          <button
+            type='submit'
+            className='bg-black text-white hover:bg-white hover:text-black border border-2 font-bold text-sm h-[40px] rounded'
+          >
+            {'Confirm Purchase'}
+          </button>
+        </form>
+      ) : (
+        <span className='text-2xl m-[200px]'>No Items in Cart</span>
+      )}
+      {loading && <PurchaseLoader />}
     </>
   )
 }

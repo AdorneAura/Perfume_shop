@@ -23,10 +23,6 @@ const Cart = () => {
   return (
     <>
       <Navbar />
-      <h1 className='flex justify-evenly text-xl'>
-        <span>YOUR ITEMS</span>
-        <span>PLEASE INSERT DETAILS</span>
-      </h1>
       <div className='relative flex justify-center items-start mb-[50px] gap-10'>
         {products.length > 0 ? (
           <>

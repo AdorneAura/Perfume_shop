@@ -49,10 +49,15 @@ const CartDetails = ({ products }) => {
             />
           )
         })}
-        <li className='self-end font-bold'>
-          Total:{' '}
-          {cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)}
-        </li>
+        {cartItems.length > 0 && (
+          <li className='self-end font-bold'>
+            Total:{' '}
+            {cartItems.reduce(
+              (acc, curr) => acc + curr.price * curr.quantity,
+              0
+            )}
+          </li>
+        )}
       </ul>
     </>
   )

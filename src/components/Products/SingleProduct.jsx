@@ -4,6 +4,7 @@ import { extractProducts, findProductById } from '../../utils/findProduct'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, populateCart } from '../../store/cart/cart'
 import { reduceQuantity } from '../../store/products/products'
+import { NavLink } from 'react-router-dom'
 
 const SingleProduct = ({ product }) => {
   const [productRem, setProductRem] = useState(0)
@@ -51,6 +52,9 @@ const SingleProduct = ({ product }) => {
       >
         {product.remaining - productRem > 0 ? 'Add to cart' : 'Out of Stock'}
       </button>
+      <NavLink to={"/cart"} className='bg-black border text-white p-1 w-[80%] text-center mt-[4px]'>
+        Go to cart
+      </NavLink>
     </li>
   )
 }
