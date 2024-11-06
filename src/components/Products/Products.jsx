@@ -22,7 +22,6 @@ const Products = () => {
 
   return (
     <div className='mb-[100px]'>
-      <NavLink to='success'>NavLink</NavLink>
       <h1 className='text-center p-5 text-6xl font-bold my-[40px] text-yellow-600'>
         PRODUCTS
       </h1>
