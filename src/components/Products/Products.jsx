@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react'
 import SingleProduct from './SingleProduct'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../../store/products/products'
-import { NavLink } from 'react-router-dom'
 
 const Products = () => {
   const products = useSelector(store => store.products.products)
