@@ -1,11 +1,17 @@
 import React from 'react'
 import SingleCartItemBtn from './SingleCartItemBtn'
 import { removeCartItem } from '../../utils/cartLocalStorage'
+import { useDispatch } from 'react-redux'
+import { removeFromCart } from '../../store/cart/cart'
 
 const SingleCartItem = ({ item, handleItemCounter }) => {
+  const dispatch = useDispatch()
+
   const removeItem = id => {
     removeCartItem(id)
+    dispatch(removeFromCart({ id, quantity: item.quantity }))
   }
+
   return (
     <li
       key={item.documentId}
