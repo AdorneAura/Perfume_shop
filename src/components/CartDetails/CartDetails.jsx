@@ -39,7 +39,7 @@ const CartDetails = ({ products }) => {
 
   return (
     <>
-      <ul className='flex flex-col items-start h-screen sm-w-[300px] mt-[60px] mb-[150px] gap-4'>
+      <ul className='flex flex-col items-start sm-w-[300px] mt-[60px] gap-4'>
         {cartItems.map(item => {
           return (
             <SingleCartItem

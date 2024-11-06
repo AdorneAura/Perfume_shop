@@ -23,11 +23,11 @@ const Cart = () => {
   return (
     <>
       <Navbar />
-      <div className='relative flex justify-center items-start mb-[50px] gap-10'>
+      <div className='relative flex flex-col lg:flex-row justify-center items-center lg:items-start mb-[50px] gap-10'>
         {products.length > 0 ? (
           <>
-            <BuyerForm products={products} />
             <CartDetails products={products} />
+            <BuyerForm products={products} />
           </>
         ) : (
           <p>Loading...</p>
