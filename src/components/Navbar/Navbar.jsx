@@ -10,7 +10,9 @@ const Navbar = () => {
 
   return (
     <nav className='flex justify-around items-center py-7 bg-black'>
+      <NavLink to={'/'}>
       <img src={logo} alt='adorn aura logo' className='w-[150px]' />
+      </NavLink>
       {/* <ul className='flex gap-3'>
         {
           navlinks.map((link, index) => (
