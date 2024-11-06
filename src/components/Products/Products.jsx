@@ -27,9 +27,14 @@ const Products = () => {
         PRODUCTS
       </h1>
       <ul className='flex flex-wrap justify-center items-center gap-4'>
-        {products.map((product, idx) => (
-          <SingleProduct product={product} key={product.documentId + idx} />
-        ))}
+        {products.map((product, idx) => {
+          if (product.available) {
+            return (
+              <SingleProduct product={product} key={product.documentId + idx} />
+            )
+          }
+          return ''
+        })}
       </ul>
     </div>
   )
