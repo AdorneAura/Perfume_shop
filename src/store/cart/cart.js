@@ -6,8 +6,15 @@ const cartSlice = createSlice({
     cart: []
   },
   reducers: {
-    addToCart: (state, payload) => {
-      state.cart.push(payload)
+    addToCart: (state, action) => {
+      const targetItem = state.cart.find(
+        product => product.documentId === action.payload.documentId
+      )
+      if (targetItem) {
+        targetItem.quantity++
+      } else {
+        state.cart.push(action.payload)
+      }
     },
     populateCart: (state, action) => {
       state.cart = action.payload
