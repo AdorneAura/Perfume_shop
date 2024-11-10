@@ -10,6 +10,7 @@ const cartSlice = createSlice({
       const targetItem = state.cart.find(
         product => product.documentId === action.payload.documentId
       )
+
       if (targetItem) {
         targetItem.quantity++
       } else {

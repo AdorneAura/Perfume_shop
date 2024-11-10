@@ -2,14 +2,26 @@ import React, { useEffect, useRef } from 'react'
 import SingleProduct from './SingleProduct'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../../store/products/products'
+import { getLocalCart } from '../../utils/cartLocalStorage'
+import { extractProducts } from '../../utils/findProduct'
+import { populateCart } from '../../store/cart/cart'
 
 const Products = () => {
   const products = useSelector(store => store.products.products)
   const dispatch = useDispatch()
   const renderCount = useRef(0)
 
-  const prod = () => {
-    dispatch(fetchProducts())
+  const setupCartItems = (prods) => {
+    const lclCartItems = getLocalCart()
+    const ep = extractProducts(lclCartItems, prods)
+    dispatch(populateCart(ep))
+  }
+
+  const prod = async () => {
+    const gotProds = await dispatch(fetchProducts())
+    if(gotProds.type === 'FETCH_PRODUCTS/fulfilled') {
+      setupCartItems(gotProds.payload.data)
+    }
   }
 
   useEffect(() => {
