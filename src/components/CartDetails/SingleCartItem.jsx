@@ -40,7 +40,7 @@ const SingleCartItem = ({ item, handleItemCounter }) => {
             id={item.documentId}
             text={'+'}
             handleItemCounter={handleItemCounter}
-            disabled={+item.remaining - item.quantity === 1}
+            disabled={+item.remaining - item.quantity === 0}
           />
         </div>
         <span>Remaining: {item.remaining - item.quantity}</span>
