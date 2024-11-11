@@ -1,17 +1,23 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SingleProduct from './SingleProduct'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from '../../store/products/products'
 import { getLocalCart } from '../../utils/cartLocalStorage'
 import { extractProducts } from '../../utils/findProduct'
 import { populateCart } from '../../store/cart/cart'
+import ProductDetail from './ProductDetail'
 
 const Products = () => {
+  const [popupId, setPopupId] = useState(null)
+  const [popupVisibility, setPopupVisibility] = useState(false)
+
   const products = useSelector(store => store.products.products)
+
   const dispatch = useDispatch()
+
   const renderCount = useRef(0)
 
-  const setupCartItems = (prods) => {
+  const setupCartItems = prods => {
     const lclCartItems = getLocalCart()
     const ep = extractProducts(lclCartItems, prods)
     dispatch(populateCart(ep))
@@ -19,9 +25,16 @@ const Products = () => {
 
   const prod = async () => {
     const gotProds = await dispatch(fetchProducts())
-    if(gotProds.type === 'FETCH_PRODUCTS/fulfilled') {
+    if (gotProds.type === 'FETCH_PRODUCTS/fulfilled') {
       setupCartItems(gotProds.payload.data)
     }
+  }
+
+  const handlePopupVisibility = () => setPopupVisibility(prev => !prev)
+
+  const handlePopup = id => {
+    setPopupId(id)
+    handlePopupVisibility()
   }
 
   useEffect(() => {
@@ -46,6 +59,7 @@ const Products = () => {
           return ''
         })}
       </ul>
+      {/* <ProductDetail product={products[0]} /> */}
     </div>
   )
 }
