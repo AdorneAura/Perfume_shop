@@ -59,7 +59,7 @@ const Products = () => {
           return ''
         })}
       </ul>
-      {/* <ProductDetail product={products[0]} /> */}
+      <ProductDetail product={products[0]} />
     </div>
   )
 }
