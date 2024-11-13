@@ -14,13 +14,13 @@ const SingleProduct = ({ product }) => {
 
   const ps = useSelector(store => store.products.products)
 
-  const addProductToCart = () => {
-    const item = { id: product.documentId, quantity: 1 }
-    setLocalCart(item)
-    const productToRedux = findProductById(item.id, ps)
-    dispatch(addToCart(productToRedux))
-    handleRemItems()
-  }
+  // const addProductToCart = () => {
+  //   const item = { id: product.documentId, quantity: 1 }
+  //   setLocalCart(item)
+  //   const productToRedux = findProductById(item.id, ps)
+  //   dispatch(addToCart(productToRedux))
+  //   handleRemItems()
+  // }
 
   const handleRemItems = () => {
     const localCartProducts = getLocalCart() || []
@@ -35,7 +35,7 @@ const SingleProduct = ({ product }) => {
     }
   }, [])
   return (
-    <li className='max-w-[300px] pb-[30px] flex flex-col justify-center items-center shadow-2xl'>
+    <NavLink to={`/product/${product.documentId}`} className='max-w-[300px] pb-[30px] flex flex-col justify-center items-center shadow-2xl'>
       <img src={product.imgUrl} alt={product.title} className='mb-[10px]' />
       <h2 className='text-center text-3xl'>{product.title}</h2>
       <div className='flex items-end gap-3'>
@@ -43,7 +43,7 @@ const SingleProduct = ({ product }) => {
         <p className='text-yellow-500 text-xl font-bold'>{product.price}Rs</p>
       </div>
       <span>Remaining: {product.remaining - productRem}</span>
-      <button
+      {/* <button
         className={`bg-${
           product.remaining - productRem > 0 ? 'black' : 'red-500'
         } text-white p-1 w-[80%] mt-4`}
@@ -54,8 +54,8 @@ const SingleProduct = ({ product }) => {
       </button>
       <NavLink to={"/cart"} className='bg-black border text-white p-1 w-[80%] text-center mt-[4px]'>
         Go to cart
-      </NavLink>
-    </li>
+      </NavLink> */}
+    </NavLink>
   )
 }
 

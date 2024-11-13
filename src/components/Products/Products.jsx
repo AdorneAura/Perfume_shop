@@ -5,11 +5,11 @@ import { fetchProducts } from '../../store/products/products'
 import { getLocalCart } from '../../utils/cartLocalStorage'
 import { extractProducts } from '../../utils/findProduct'
 import { populateCart } from '../../store/cart/cart'
-import ProductDetail from './ProductDetail'
+import ProductDetail from '../../pages/Detail'
 
 const Products = () => {
-  const [popupId, setPopupId] = useState(null)
-  const [popupVisibility, setPopupVisibility] = useState(false)
+  // const [popupId, setPopupId] = useState(null)
+  // const [popupVisibility, setPopupVisibility] = useState(false)
 
   const products = useSelector(store => store.products.products)
 
@@ -30,12 +30,12 @@ const Products = () => {
     }
   }
 
-  const handlePopupVisibility = () => setPopupVisibility(prev => !prev)
+  // const handlePopupVisibility = () => setPopupVisibility(prev => !prev)
 
-  const handlePopup = id => {
-    setPopupId(id)
-    handlePopupVisibility()
-  }
+  // const handlePopup = id => {
+  //   setPopupId(id)
+  //   handlePopupVisibility()
+  // }
 
   useEffect(() => {
     if (renderCount.current == 0 && products.length < 1) {
@@ -49,7 +49,7 @@ const Products = () => {
       <h1 className='text-center p-5 text-6xl font-bold my-[40px] text-yellow-600'>
         PRODUCTS
       </h1>
-      <ul className='flex flex-wrap justify-center items-center gap-4'>
+      <div className='flex flex-wrap justify-center items-center gap-4'>
         {products.map((product, idx) => {
           if (product.available) {
             return (
@@ -58,8 +58,8 @@ const Products = () => {
           }
           return ''
         })}
-      </ul>
-      <ProductDetail product={products[0]} />
+      </div>
+      <ProductDetail/>
     </div>
   )
 }
