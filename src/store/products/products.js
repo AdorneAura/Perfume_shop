@@ -35,6 +35,7 @@ const productsSlice = createSlice({
       const targetItem = state.products.find(
         product => product.documentId === action.payload.id
       )
+      console.log(state.products[0].documentId, action)
       state.singleProduct = targetItem
     }
   },

@@ -5,7 +5,6 @@ import { fetchProducts } from '../../store/products/products'
 import { getLocalCart } from '../../utils/cartLocalStorage'
 import { extractProducts } from '../../utils/findProduct'
 import { populateCart } from '../../store/cart/cart'
-import ProductDetail from '../../pages/Detail'
 
 const Products = () => {
   // const [popupId, setPopupId] = useState(null)
@@ -59,7 +58,6 @@ const Products = () => {
           return ''
         })}
       </div>
-      <ProductDetail/>
     </div>
   )
 }
