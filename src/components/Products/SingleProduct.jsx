@@ -14,13 +14,13 @@ const SingleProduct = ({ product }) => {
 
   const ps = useSelector(store => store.products.products)
 
-  // const addProductToCart = () => {
-  //   const item = { id: product.documentId, quantity: 1 }
-  //   setLocalCart(item)
-  //   const productToRedux = findProductById(item.id, ps)
-  //   dispatch(addToCart(productToRedux))
-  //   handleRemItems()
-  // }
+  const addProductToCart = () => {
+    const item = { id: product.documentId, quantity: 1 }
+    setLocalCart(item)
+    const productToRedux = findProductById(item.id, ps)
+    dispatch(addToCart(productToRedux))
+    handleRemItems()
+  }
 
   const handleRemItems = () => {
     const localCartProducts = getLocalCart() || []
@@ -42,8 +42,7 @@ const SingleProduct = ({ product }) => {
         {product.oldPrice > 0 && <span className='text-red-600 line-through'>{product.oldPrice}Rs</span>}
         <p className='text-yellow-500 text-xl font-bold'>{product.price}Rs</p>
       </div>
-      <span>Remaining: {product.remaining - productRem}</span>
-      {/* <button
+      <button
         className={`bg-${
           product.remaining - productRem > 0 ? 'black' : 'red-500'
         } text-white p-1 w-[80%] mt-4`}
@@ -52,7 +51,7 @@ const SingleProduct = ({ product }) => {
       >
         {product.remaining - productRem > 0 ? 'Add to cart' : 'Out of Stock'}
       </button>
-      <NavLink to={"/cart"} className='bg-black border text-white p-1 w-[80%] text-center mt-[4px]'>
+      {/* <NavLink to={"/cart"} className='bg-black border text-white p-1 w-[80%] text-center mt-[4px]'>
         Go to cart
       </NavLink> */}
     </NavLink>

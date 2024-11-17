@@ -33,7 +33,7 @@ const SingleCartItem = ({ item, handleItemCounter }) => {
             id={item.documentId}
             text={'-'}
             handleItemCounter={handleItemCounter}
-            disabled={item.quantity === 1}
+            disabled={item.quantity <= 1}
           />
           <p>{item.quantity}</p>
           <SingleCartItemBtn
