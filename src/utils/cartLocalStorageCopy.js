@@ -1,28 +1,28 @@
 export const getLocalCart = () =>
   JSON.parse(localStorage.getItem('cartItems')) || []
 
-export const setLocalCart = (item) => {
-  let cartItems = getLocalCart() || []
-  if (cartItems) {
-    const existingItem = cartItems.find(i => i.id === item.id)
-    if (existingItem) {
-      const qty = Object.keys(item.variation)[0]
+export const setLocalCart = (item, variationKey) => {
+  let localCart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-      if (!existingItem.variation[qty]) {
-        existingItem.variation[qty] = { quantity: 0 }
-      }
+  const existingProductIndex = localCart.findIndex(
+    (cartItem) => cartItem.id === item.id
+  );
 
-      const finalQty =
-        +existingItem.variation[qty].quantity + item.variation[qty].quantity
-
-      existingItem.variation[qty].quantity = finalQty
-    } else {
-      cartItems.push(item)
-    }
+  if (existingProductIndex > -1) {
+    // Product exists in cart
+    const existingProduct = localCart[existingProductIndex];
+    existingProduct.variation[variationKey] = {
+      quantity: (existingProduct.variation[variationKey]?.quantity || 0) + item.variation[variationKey].quantity,
+    };
+    localCart[existingProductIndex] = existingProduct;
+  } else {
+    // Add new product to cart
+    localCart.push(item);
   }
 
-  localStorage.setItem('cartItems', JSON.stringify(cartItems))
-}
+  localStorage.setItem('cartItems', JSON.stringify(localCart));
+};
+
 
 export const removeCartItem = id => {
   let cartItems = getLocalCart() || []
