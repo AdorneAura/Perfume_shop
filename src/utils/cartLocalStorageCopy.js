@@ -23,7 +23,6 @@ export const setLocalCart = (item, variationKey) => {
 
 
 export const removeCartItem = (documentId, variationKey) => {
-  console.log(documentId, variationKey)
   let cartItems = getLocalCart() || []; // Fetch current cart items from local storage
   
   const updatedCartItems = cartItems

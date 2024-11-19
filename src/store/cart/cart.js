@@ -38,8 +38,6 @@ const cartSlice = createSlice({
         })
         .filter(Boolean)];
 
-        console.log(res)
-
         state.cart = res
     },
     clearCart: () => {
