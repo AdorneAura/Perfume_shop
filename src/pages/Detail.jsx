@@ -13,7 +13,6 @@ const Detail = () => {
   const dispatch = useDispatch()
   const product = useSelector(store => store.products.singleProduct)
 
-  // Set default variation on product load
   useEffect(() => {
     if (product && Object.keys(product.inventory).length > 0) {
       const defaultVariation = Object.keys(product.inventory)[0]
@@ -40,15 +39,15 @@ const Detail = () => {
   const addProductToCart = () => {
     if (!selectedVariation || !product) return
 
-    const variationKey = selectedVariation // Ensure this is a valid string key
+    const variationKey = selectedVariation
     const item = {
       id: product.documentId,
       variation: {
-        [variationKey]: { quantity } // Ensure this is structured as an object
+        [variationKey]: { quantity }
       }
     }
 
-    setLocalCart(item, variationKey) // Ensure setLocalCart can handle this structure
+    setLocalCart(item, variationKey)
   }
 
   return (

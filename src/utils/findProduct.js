@@ -6,9 +6,9 @@ export const findProductById = (id, products) => {
 
 export const extractProducts = (localStorageCartItems, products) => {
   const extractedProducts = [
-    ...localStorageCartItems.map(i => {
+    ...localStorageCartItems.map((i, idx) => {
       const product = findProductById(i.id, products)
-      return { ...product, quantity: i.quantity }
+      return { ...product, variation: localStorageCartItems[idx].variation }
     })
   ]
   return extractedProducts
