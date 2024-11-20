@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useRef } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Loader from './pages/Loader'
@@ -8,6 +8,15 @@ const Cart = React.lazy(() => import('./pages/Cart'))
 const Success = React.lazy(() => import('./pages/Success'))
 
 const App = () => {
+  const renderCount = useRef(0)
+
+  useEffect(() => {
+    if (renderCount.current === 0) {
+      console.log('Working...')
+      renderCount.current = +1
+    }
+  }, [])
+
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
