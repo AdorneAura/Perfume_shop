@@ -28,3 +28,14 @@ export const updateRemainingQuantities = (cartItems, productList) => {
   })
   return updatedProductList
 }
+
+export const mergeArrays = (array1, array2) => {
+  return array1.map(item1 => {
+    const matchingItem = array2.find(item2 => item2.documentId === item1.id)
+    return {
+      id: item1.id,
+      title: matchingItem ? matchingItem.title : null,
+      variation: item1.variation
+    }
+  })
+}
