@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLocalCart, setLocalCart } from '../utils/cartLocalStorageCopy'
+import { getLocalCart, setLocalCart } from '../utils/cartLocalStorage'
 import { findItem } from '../store/products/products'
 import SingleCartItemBtn from '../components/CartDetails/SingleCartItemBtn'
 

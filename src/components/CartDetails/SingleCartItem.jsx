@@ -1,6 +1,6 @@
 import React from 'react'
 import SingleCartItemBtn from './SingleCartItemBtn'
-import { removeCartItem } from '../../utils/cartLocalStorageCopy'
+import { removeCartItem } from '../../utils/cartLocalStorage'
 import { useDispatch } from 'react-redux'
 import { removeFromCart } from '../../store/cart/cart'
 
