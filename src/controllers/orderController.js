@@ -31,7 +31,6 @@ export class OrderController {
   }
 }
 
-
 /*
   -- First we shall make a call to update the quantity of the products
   

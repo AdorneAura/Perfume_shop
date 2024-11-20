@@ -7,42 +7,63 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
+      const { documentId, variationKey } = action.payload
+
       const targetItem = state.cart.find(
-        product => product.documentId === action.payload.documentId
+        product =>
+          product.documentId === documentId &&
+          product.variationKey === variationKey
       )
 
       if (targetItem) {
         targetItem.quantity++
       } else {
-        state.cart.push(action.payload)
+        state.cart.push({ ...action.payload, quantity: 1 })
       }
     },
     populateCart: (state, action) => {
       state.cart = action.payload
     },
     removeFromCart: (state, action) => {
-      const targetItem = state.cart.find(
-        product => product.documentId === action.payload.id
-      )
-      targetItem.quantity = targetItem.quantity - action.payload.quantity
-      state.cart = state.cart.filter(
-        item => item.documentId !== action.payload.id
-      )
+      const { documentId, variationKey } = action.payload
+
+      const res = [
+        ...state.cart
+          .map(item => {
+            if (item.documentId === documentId) {
+              const { [variationKey]: _, ...remainingVariations } =
+                item.variation
+              if (Object.keys(remainingVariations).length > 0) {
+                return { ...item, variation: remainingVariations }
+              }
+              return null
+            }
+            return item
+          })
+          .filter(Boolean)
+      ]
+
+      state.cart = res
     },
-    clearCart: state => {
-      return initialState
+    clearCart: () => {
+      return { cart: [] }
     },
     increaseQuantity: (state, action) => {
+      const { documentId } = action.payload.item
+      const { variationKey } = action.payload
       const targetItem = state.cart.find(
-        product => product.documentId === action.payload.id
+        product => product.documentId === documentId
       )
-      targetItem.quantity++
+      if (targetItem) targetItem.variation[variationKey].quantity += 1
     },
     decreaseQuantity: (state, action) => {
+      const { documentId } = action.payload.item
+      const { variationKey } = action.payload
       const targetItem = state.cart.find(
-        product => product.documentId === action.payload.id
+        product => product.documentId === documentId
       )
-      targetItem.quantity--
+      if (targetItem && targetItem.variation[variationKey].quantity > 1)
+      targetItem.variation[variationKey].quantity -= 1
     }
   }
 })

@@ -11,17 +11,21 @@ import SingleCartItem from './SingleCartItem'
 
 const CartDetails = ({ products }) => {
   const cartItems = useSelector(store => store.cart.cart)
-
   const dispatch = useDispatch()
   const renderCount = useRef(0)
 
-  const handleItemCounter = e => {
-    const { id, innerHTML } = e.target
-    let quantity
-    innerHTML == '-' ? (quantity = -1) : (quantity = +1)
-    const item = { id, quantity }
-    setLocalCart(item)
-    dispatch(innerHTML == '+' ? increaseQuantity(item) : decreaseQuantity(item))
+  const handleItemCounter = (item, variationKey, operator) => {
+    let quantity = operator === '-' ? -1 : +1
+    const updatedItem = {
+      id: item.documentId,
+      variation: { [variationKey]: { quantity } }
+    }
+    setLocalCart(updatedItem, variationKey)
+    dispatch(
+      operator === '+'
+        ? increaseQuantity({ item, variationKey })
+        : decreaseQuantity({ item, variationKey })
+    )
   }
 
   const setupCartItems = () => {
@@ -40,24 +44,20 @@ const CartDetails = ({ products }) => {
   return (
     <>
       <ul className='flex flex-col items-start sm-w-[300px] mt-[60px] gap-4'>
-        {cartItems.map(item => {
-          return (
-            <SingleCartItem
-              key={item.documentId}
-              item={item}
-              handleItemCounter={handleItemCounter}
-            />
-          )
-        })}
-        {cartItems.length > 0 && (
-          <li className='self-end font-bold'>
+        {cartItems.map(item => (
+          <SingleCartItem
+            key={`${item.documentId}-${item.variationKey}`}
+            item={item}
+            handleItemCounter={handleItemCounter}
+          />
+        ))}
+        {/* {cartItems.length > 0 && (
+          <li className="self-end font-bold">
             Total:{' '}
-            {cartItems.reduce(
-              (acc, curr) => acc + curr.price * curr.quantity,
-              0
-            )}
+            {cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)}{' '}
+            Rs
           </li>
-        )}
+        )} */}
       </ul>
     </>
   )

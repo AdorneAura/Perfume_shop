@@ -3,6 +3,7 @@ import { getProducts } from '../../controllers/productController'
 
 const initialState = {
   products: [],
+  singleProduct: null,
   status: 'idle'
 }
 
@@ -28,8 +29,13 @@ const productsSlice = createSlice({
       const targetItem = state.products.find(
         product => product.documentId == action.payload.id
       )
-      console.log({ ...targetItem })
       targetItem.remaining = +targetItem.remaining - action.payload.quantity
+    },
+    findItem: (state, action) => {
+      const targetItem = state.products.find(
+        product => product.documentId === action.payload.id
+      )
+      state.singleProduct = targetItem
     }
   },
   extraReducers: builder => {
@@ -47,6 +53,6 @@ const productsSlice = createSlice({
   }
 })
 
-export const { addUpdatedList, addQuantity, reduceQuantity } =
+export const { addUpdatedList, addQuantity, reduceQuantity, findItem } =
   productsSlice.actions
 export default productsSlice.reducer

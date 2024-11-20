@@ -4,7 +4,7 @@ import { filterKeyValuePairs } from '../../utils/commonFun'
 import { OrderController } from '../../controllers/orderController'
 import { useNavigate } from 'react-router-dom'
 import { clearLocStore, getLocalCart } from '../../utils/cartLocalStorage'
-import { updateRemainingQuantities } from '../../utils/findProduct'
+import { mergeArrays, updateRemainingQuantities } from '../../utils/findProduct'
 import { addUpdatedList } from '../../store/products/products'
 import emailjs from '@emailjs/browser'
 import PurchaseLoader from './PurchaseLoader'
@@ -32,20 +32,24 @@ const BuyerForm = ({ products }) => {
   const handleForm = async e => {
     e.preventDefault()
     setLoading(true)
+    const cartItems = getLocalCart()
     const filteredProducts = filterKeyValuePairs(cart, [
       'documentId',
       'title',
-      'quantity'
     ])
+
+    const ordered_items = mergeArrays(cartItems, filteredProducts)
     const data = {
       data: {
         full_name: userInfo.full_name,
         email: userInfo.email,
         address: `${userInfo.house_no} ${userInfo.street} ${userInfo.city} ${userInfo.country}`,
         phone_no: userInfo.phone_no,
-        ordered_items: filteredProducts
+        ordered_items
       }
     }
+
+    console.log(data)
 
     const result = await OrderController.createOrder(data)
     if (result.status === 201) {
@@ -148,7 +152,7 @@ const BuyerForm = ({ products }) => {
             onChange={handleInput}
             required
           />
-          <ul className='px-1'>
+          {/* <ul className='px-1'>
             <li>
               <span className='text-white'>Wanna save address?</span>
             </li>
@@ -159,7 +163,7 @@ const BuyerForm = ({ products }) => {
                 onChange={saveBillingAddress}
               />
             </li>
-          </ul>
+          </ul> */}
           <button
             type='submit'
             className='bg-black text-white hover:bg-white hover:text-black border border-2 font-bold text-sm h-[40px] rounded'
