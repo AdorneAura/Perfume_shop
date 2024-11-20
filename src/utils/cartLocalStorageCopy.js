@@ -2,6 +2,7 @@ export const getLocalCart = () =>
   JSON.parse(localStorage.getItem('cartItems')) || []
 
 export const setLocalCart = (item, variationKey) => {
+  console.log(item)
   let localCart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
   const existingProductIndex = localCart.findIndex(

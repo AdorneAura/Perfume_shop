@@ -40,19 +40,17 @@ const SingleCartItem = ({ item, handleItemCounter }) => {
           <div className='w-[100px]'>
             <div className='flex gap-2'>
               <SingleCartItemBtn
-                id={item.documentId}
+                id={item.documentId + '-/-' + variationKey}
                 text={'-'}
-                handleItemCounter={handleItemCounter}
-                data-variation-key={item.variationKey}
-                disabled={item.quantity <= 1}
+                handleItemCounter={() => handleItemCounter(item, variationKey, '-')}
+                disabled={item.variation[variationKey].quantity <= 1}
               />
               <p>{item.variation[variationKey].quantity}</p>
               <SingleCartItemBtn
-                id={item.documentId}
+                id={item.documentId + '-/-' + variationKey}
                 text={'+'}
-                handleItemCounter={handleItemCounter}
-                data-variation-key={item.variationKey}
-                disabled={+item.remaining - item.quantity === 0}
+                handleItemCounter={() => handleItemCounter(item, variationKey, '+')}
+                disabled={item.variation[variationKey].quantity >= 10}
               />
             </div>
           </div>
