@@ -7,9 +7,6 @@ import { extractProducts } from '../../utils/findProduct'
 import { populateCart } from '../../store/cart/cart'
 
 const Products = () => {
-  // const [popupId, setPopupId] = useState(null)
-  // const [popupVisibility, setPopupVisibility] = useState(false)
-
   const products = useSelector(store => store.products.products)
 
   const dispatch = useDispatch()
@@ -28,13 +25,6 @@ const Products = () => {
       setupCartItems(gotProds.payload.data)
     }
   }
-
-  // const handlePopupVisibility = () => setPopupVisibility(prev => !prev)
-
-  // const handlePopup = id => {
-  //   setPopupId(id)
-  //   handlePopupVisibility()
-  // }
 
   useEffect(() => {
     if (renderCount.current == 0 && products.length < 1) {
