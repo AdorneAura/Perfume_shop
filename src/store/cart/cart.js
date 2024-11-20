@@ -1,70 +1,78 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 const cartSlice = createSlice({
   name: 'cartSlice',
   initialState: {
-    cart: [],
+    cart: []
   },
   reducers: {
     addToCart: (state, action) => {
-      const { documentId, variationKey } = action.payload;
+      const { documentId, variationKey } = action.payload
 
       const targetItem = state.cart.find(
-        (product) => product.documentId === documentId && product.variationKey === variationKey
-      );
+        product =>
+          product.documentId === documentId &&
+          product.variationKey === variationKey
+      )
 
       if (targetItem) {
-        targetItem.quantity++;
+        targetItem.quantity++
       } else {
-        state.cart.push({ ...action.payload, quantity: 1 });
+        state.cart.push({ ...action.payload, quantity: 1 })
       }
     },
     populateCart: (state, action) => {
-      state.cart = action.payload;
+      state.cart = action.payload
     },
     removeFromCart: (state, action) => {
-      const { documentId, variationKey } = action.payload;
-    
-      const res = [...state.cart
-        .map(item => {
-          if (item.documentId === documentId) {
-            const { [variationKey]: _, ...remainingVariations } = item.variation;
-            if (Object.keys(remainingVariations).length > 0) {
-              return { ...item, variation: remainingVariations };
-            }
-            return null;
-          }
-          return item;
-        })
-        .filter(Boolean)];
+      const { documentId, variationKey } = action.payload
 
-        state.cart = res
+      const res = [
+        ...state.cart
+          .map(item => {
+            if (item.documentId === documentId) {
+              const { [variationKey]: _, ...remainingVariations } =
+                item.variation
+              if (Object.keys(remainingVariations).length > 0) {
+                return { ...item, variation: remainingVariations }
+              }
+              return null
+            }
+            return item
+          })
+          .filter(Boolean)
+      ]
+
+      state.cart = res
     },
     clearCart: () => {
-      return { cart: [] };
+      return { cart: [] }
     },
     increaseQuantity: (state, action) => {
-      const { documentId, variationKey } = action.payload;
+      const { documentId } = action.payload.item
+      const { variationKey } = action.payload
       const targetItem = state.cart.find(
-        (product) => product.documentId === documentId && product.variationKey === variationKey
-      );
-      if (targetItem) targetItem.quantity++;
+        product => product.documentId === documentId
+      )
+      if (targetItem) targetItem.variation[variationKey].quantity += 1
     },
     decreaseQuantity: (state, action) => {
-      const { documentId, variationKey } = action.payload;
+      const { documentId } = action.payload.item
+      const { variationKey } = action.payload
       const targetItem = state.cart.find(
-        (product) => product.documentId === documentId && product.variationKey === variationKey
-      );
-      if (targetItem && targetItem.quantity > 1) targetItem.quantity--;
-    },
-  },
-});
+        product => product.documentId === documentId
+      )
+      if (targetItem && targetItem.variation[variationKey].quantity > 1)
+      targetItem.variation[variationKey].quantity -= 1
+    }
+  }
+})
 
 export const {
   addToCart,
   populateCart,
   removeFromCart,
   increaseQuantity,
-  decreaseQuantity,
-} = cartSlice.actions;
-export default cartSlice.reducer;
+  decreaseQuantity
+} = cartSlice.actions
+export default cartSlice.reducer

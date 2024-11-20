@@ -20,8 +20,12 @@ const CartDetails = ({ products }) => {
       id: item.documentId,
       variation: { [variationKey]: { quantity } }
     }
-    setLocalCart(updatedItem, variationKey);
-    // dispatch(innerHTML === '+' ? increaseQuantity(item) : decreaseQuantity(item));
+    setLocalCart(updatedItem, variationKey)
+    dispatch(
+      operator === '+'
+        ? increaseQuantity({ item, variationKey })
+        : decreaseQuantity({ item, variationKey })
+    )
   }
 
   const setupCartItems = () => {
