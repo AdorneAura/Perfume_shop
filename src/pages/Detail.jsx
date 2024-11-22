@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getLocalCart, setLocalCart } from '../utils/cartLocalStorage'
 import { findItem } from '../store/products/products'
 import SingleCartItemBtn from '../components/CartDetails/SingleCartItemBtn'
+import AppLayout from '../Layout/AppLayout'
 
 const Detail = () => {
   const id = window.location.pathname.split('/')[2]
@@ -122,4 +123,4 @@ const Detail = () => {
   )
 }
 
-export default Detail
+export default AppLayout()(Detail)

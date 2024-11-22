@@ -3,13 +3,13 @@ import CartDetails from '../components/CartDetails/CartDetails'
 import BuyerForm from '../components/BuyerForm/BuyerForm'
 import { useSelector } from 'react-redux'
 import Navbar from '../components/Navbar/Navbar'
+import AppLayout from '../Layout/AppLayout'
 
 const Cart = () => {
   const products = useSelector(store => store.products.products)
 
   return (
     <>
-      <Navbar />
       <div className='relative flex flex-col lg:flex-row justify-center items-center lg:items-start mb-[50px] gap-10'>
         {products.length > 0 ? (
           <>
@@ -24,4 +24,4 @@ const Cart = () => {
   )
 }
 
-export default Cart
+export default AppLayout()(Cart)
