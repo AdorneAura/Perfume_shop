@@ -5,8 +5,10 @@ const AppLayout = () => WrappedComponent => {
   return props => {
     return (
       <>
-          <Navbar />
-        <WrappedComponent {...props} />
+        <Navbar />
+        <div className='mt-[94px]'>
+          <WrappedComponent {...props} />
+        </div>
       </>
     )
   }
