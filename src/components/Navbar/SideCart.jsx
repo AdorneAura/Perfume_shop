@@ -1,17 +1,17 @@
 import React from 'react'
-import SideCartItem from './SideCartItem'
 import { useSelector } from 'react-redux'
 import CartDetails from '../CartDetails/CartDetails'
+import { NavLink } from 'react-router-dom'
 
-const SideCart = ({isSidebarOpen, toggleSidebar, cart}) => {
+const SideCart = ({ isSidebarOpen, toggleSidebar, cart }) => {
   const products = useSelector(store => store.products.products)
 
   return (
     <>
       <div
-        className={`fixed top-0 right-0 h-full w-[300px] bg-white shadow-lg z-20 transform ${
+        className={`fixed top-0 right-0 h-full w-[300px] md:w-[600px] bg-white shadow-lg z-20 transform ${
           isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
-        } transition-transform duration-300`}
+        } transition-transform duration-300 overflow-scroll`}
       >
         <button
           onClick={toggleSidebar}
@@ -24,7 +24,15 @@ const SideCart = ({isSidebarOpen, toggleSidebar, cart}) => {
           {cart.length === 0 ? (
             <p>Your cart is empty</p>
           ) : (
-            <CartDetails products={products} />
+            <div className='flex flex-wrap justify-end gap-3'>
+              <CartDetails products={products} />
+              <NavLink
+                to={'/cart'}
+                className={`font-bold border border-black text-[20px] bg-black text-white p-2 rounded hover:text-black hover:bg-white transition-all`}
+              >
+                Checkout
+              </NavLink>
+            </div>
           )}
         </div>
       </div>

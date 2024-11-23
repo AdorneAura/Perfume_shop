@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <>
       <nav className='flex justify-between items-center px-7 py-4 bg-black fixed top-0 left-0 right-0 z-10'>
-        <NavLink to={'/'}>
+        <NavLink to={'/'} className='mr-1'>
           <img src={logo} alt='adorn aura logo' className='w-[100px]' />
         </NavLink>
         <div className='flex items-center gap-5'>

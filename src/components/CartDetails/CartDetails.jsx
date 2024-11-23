@@ -8,6 +8,7 @@ import {
   populateCart
 } from '../../store/cart/cart'
 import SingleCartItem from './SingleCartItem'
+import { sumCartPrice } from '../../utils/commonFun'
 
 const CartDetails = ({ products }) => {
   const cartItems = useSelector(store => store.cart.cart)
@@ -51,13 +52,13 @@ const CartDetails = ({ products }) => {
             handleItemCounter={handleItemCounter}
           />
         ))}
-        {/* {cartItems.length > 0 && (
-          <li className="self-end font-bold">
+        {cartItems.length > 0 && (
+          <li className="self-end font-bold text-lg">
             Total:{' '}
-            {cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)}{' '}
+            {sumCartPrice(cartItems)}{' '}
             Rs
           </li>
-        )} */}
+        )}
       </ul>
     </>
   )
