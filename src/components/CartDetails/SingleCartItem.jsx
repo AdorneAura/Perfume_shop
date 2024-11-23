@@ -28,7 +28,7 @@ const SingleCartItem = ({ item, handleItemCounter }) => {
               >
                 X
               </button>
-              <img src={item.imgUrl} alt={item.title} className='w-20' />
+              <img src={item.imgUrl} alt={item.title} className='w-20 rounded-[50%]' />
               <h3 className='w-[100px]'>{item.title}</h3>
               <p className='w-[100px] flex flex-wrap'>
                 <span>Variant:</span> {variationKey}

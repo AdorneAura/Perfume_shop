@@ -9,6 +9,8 @@ import {
 } from '../../store/cart/cart'
 import SingleCartItem from './SingleCartItem'
 import { sumCartPrice } from '../../utils/commonFun'
+import CartPriceDetail from './CartPriceDetail'
+import GrandTotal from './GrandTotal'
 
 const CartDetails = ({ products }) => {
   const cartItems = useSelector(store => store.cart.cart)
@@ -42,6 +44,11 @@ const CartDetails = ({ products }) => {
     }
   }, [])
 
+  const priceDetail = [
+    {id: 1, title: 'Subtotal', price: sumCartPrice(cartItems)},
+    {id: 2, title: 'Delivery Service', price: 0}
+  ]
+
   return (
     <>
       <ul className='flex flex-col items-start sm-w-[300px] mt-[60px] gap-4'>
@@ -53,11 +60,18 @@ const CartDetails = ({ products }) => {
           />
         ))}
         {cartItems.length > 0 && (
-          <li className="self-end font-bold text-lg">
-            Total:{' '}
-            {sumCartPrice(cartItems)}{' '}
-            Rs
-          </li>
+          <>
+            {
+              priceDetail.map(pD => (
+                <CartPriceDetail
+                  key={pD.id}
+                  title={pD.title}
+                  value={pD.price}
+                />
+              ))
+            }
+            <GrandTotal title={'Grand Total:'} value={sumCartPrice(cartItems)} />
+          </>
         )}
       </ul>
     </>
