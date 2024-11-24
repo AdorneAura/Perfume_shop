@@ -7,8 +7,8 @@ const Products = () => {
 
   return (
     <div className='mb-[100px]'>
-      <h1 className='text-center p-5 text-6xl font-bold my-[40px] text-yellow-600'>
-        PRODUCTS
+      <h1 className='text-center p-5 text-4xl font-bold my-[40px] text-yellow-600'>
+        Our Fragrances
       </h1>
       <div className='flex flex-wrap justify-center items-center gap-4'>
         {products.map((product, idx) => {
