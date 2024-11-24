@@ -49,8 +49,6 @@ const BuyerForm = ({ products }) => {
       }
     }
 
-    console.log(data)
-
     const result = await OrderController.createOrder(data)
     if (result.status === 201) {
       emailjs
