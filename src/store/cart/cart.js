@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { findProductById } from '../../utils/findProduct';
 
 const cartSlice = createSlice({
   name: 'cartSlice',
@@ -7,18 +8,24 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, action) => {
-      const { documentId, variationKey } = action.payload
-
-      const targetItem = state.cart.find(
-        product =>
-          product.documentId === documentId &&
-          product.variationKey === variationKey
-      )
-
+      const { documentId, variationKey, quantity, product } = action.payload;
+      const targetItem = state.cart.find(product => product.documentId === documentId);
       if (targetItem) {
-        targetItem.quantity++
+        if (targetItem.variation && targetItem.variation[variationKey]) {
+          targetItem.variation[variationKey].quantity += quantity;
+        } else {
+          targetItem.variation = {
+            ...targetItem.variation,
+            [variationKey]: { quantity }
+          };
+        }
       } else {
-        state.cart.push({ ...action.payload, quantity: 1 })
+        state.cart.push({
+          ...product,
+          variation: {
+            [variationKey]: { quantity }
+          }
+        });
       }
     },
     populateCart: (state, action) => {
@@ -63,7 +70,7 @@ const cartSlice = createSlice({
         product => product.documentId === documentId
       )
       if (targetItem && targetItem.variation[variationKey].quantity > 1)
-      targetItem.variation[variationKey].quantity -= 1
+        targetItem.variation[variationKey].quantity -= 1
     }
   }
 })
