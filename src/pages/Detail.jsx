@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getLocalCart, setLocalCart } from '../utils/cartLocalStorage'
 import { findItem } from '../store/products/products'
 import SingleCartItemBtn from '../components/CartDetails/SingleCartItemBtn'
+import AppLayout from '../Layout/AppLayout'
+import { addToCart, toggleMiniCart } from '../store/cart/cart'
+import { findProductById } from '../utils/findProduct'
 
 const Detail = () => {
   const id = window.location.pathname.split('/')[2]
@@ -48,6 +51,8 @@ const Detail = () => {
     }
 
     setLocalCart(item, variationKey)
+    dispatch(addToCart({documentId: item.id, variationKey, quantity, product}))
+    dispatch(toggleMiniCart())
   }
 
   return (
@@ -71,11 +76,12 @@ const Detail = () => {
             </div>
             {product?.inventory[selectedVariation]?.oldPrice && (
               <div className='flex gap-2'>
+                Price: 
                 <span className='text-red-600 line-through'>
                   {product.inventory[selectedVariation].oldPrice} Rs
                 </span>
-                <span className='text-yellow-500 font-bold'>
-                  Price: {product.inventory[selectedVariation].newPrice} Rs
+                <span className='text-green-600 font-bold'>
+                  {product.inventory[selectedVariation].newPrice} Rs
                 </span>
               </div>
             )}
@@ -122,4 +128,4 @@ const Detail = () => {
   )
 }
 
-export default Detail
+export default AppLayout()(Detail)

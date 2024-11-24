@@ -1,13 +1,12 @@
 import React from 'react'
-import Navbar from '../components/Navbar/Navbar'
 import Banner from '../components/Banner/Banner'
 import Products from '../components/Products/Products'
 import Footer from '../components/Footer/Footer'
+import AppLayout from '../Layout/AppLayout'
 
 const Home = () => {
   return (
     <>
-      <Navbar />
       <Banner />
       <Products/>
       <Footer />
@@ -15,4 +14,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default AppLayout()(Home)

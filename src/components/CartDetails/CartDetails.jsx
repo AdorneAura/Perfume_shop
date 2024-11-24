@@ -8,8 +8,11 @@ import {
   populateCart
 } from '../../store/cart/cart'
 import SingleCartItem from './SingleCartItem'
+import { sumCartPrice } from '../../utils/commonFun'
+import CartPriceDetail from './CartPriceDetail'
+import GrandTotal from './GrandTotal'
 
-const CartDetails = ({ products }) => {
+const CartDetails = () => {
   const cartItems = useSelector(store => store.cart.cart)
   const dispatch = useDispatch()
   const renderCount = useRef(0)
@@ -28,18 +31,10 @@ const CartDetails = ({ products }) => {
     )
   }
 
-  const setupCartItems = () => {
-    const lclCartItems = getLocalCart()
-    const ep = extractProducts(lclCartItems, products)
-    dispatch(populateCart(ep))
-  }
-
-  useEffect(() => {
-    if (renderCount.current === 0) {
-      setupCartItems()
-      renderCount.current += 1
-    }
-  }, [])
+  const priceDetail = [
+    { id: 1, title: 'Subtotal', price: sumCartPrice(cartItems) },
+    { id: 2, title: 'Delivery Service', price: 0 }
+  ]
 
   return (
     <>
@@ -51,13 +46,20 @@ const CartDetails = ({ products }) => {
             handleItemCounter={handleItemCounter}
           />
         ))}
-        {/* {cartItems.length > 0 && (
-          <li className="self-end font-bold">
-            Total:{' '}
-            {cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)}{' '}
-            Rs
-          </li>
-        )} */}
+        {cartItems.length > 0 && (
+          <>
+            <div className='flex justify-end w-full'>
+              <div className='border border-black border-dashed w-[300px] mr-3' />
+            </div>
+            {priceDetail.map(pD => (
+              <CartPriceDetail key={pD.id} title={pD.title} value={pD.price} />
+            ))}
+            <GrandTotal
+              title={'Grand Total:'}
+              value={sumCartPrice(cartItems)}
+            />
+          </>
+        )}
       </ul>
     </>
   )
