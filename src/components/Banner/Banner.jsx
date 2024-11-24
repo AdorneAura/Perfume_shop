@@ -25,6 +25,10 @@ const Banner = () => {
     )
   }
 
+  if(banners.length <= 0) {
+    return <></>
+  } 
+
   return (
     <div className='relative w-full overflow-hidden'>
       {/* Carousel Images */}
