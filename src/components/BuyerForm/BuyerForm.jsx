@@ -92,8 +92,9 @@ const BuyerForm = ({ products }) => {
         <form
           ref={form}
           onSubmit={handleForm}
-          className='flex flex-col gap-5 justify-center my-[60px] bg-black p-[40px]'
+          className='flex flex-col gap-5 justify-center my-[60px] sm:bg-white md:bg-black p-[40px]'
         >
+          <h2 className='text-2xl font-bold underline'>Your Information</h2>
           <input
             className='w-[300px] border p-2'
             type='text'
@@ -150,18 +151,6 @@ const BuyerForm = ({ products }) => {
             onChange={handleInput}
             required
           />
-          {/* <ul className='px-1'>
-            <li>
-              <span className='text-white'>Wanna save address?</span>
-            </li>
-            <li>
-              <input
-                className='p-2'
-                type='checkbox'
-                onChange={saveBillingAddress}
-              />
-            </li>
-          </ul> */}
           <button
             type='submit'
             className='bg-black text-white hover:bg-white hover:text-black border border-2 font-bold text-sm h-[40px] rounded'

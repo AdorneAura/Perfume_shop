@@ -1,14 +1,16 @@
 import React from 'react'
 import CartDetails from '../CartDetails/CartDetails'
 import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-const SideCart = ({ isSidebarOpen, toggleSidebar, cart }) => {
+const SideCart = ({ toggleSidebar, cart }) => {
+  const miniCart = useSelector(store => store.cart.visibleMini)
 
   return (
     <>
       <div
         className={`fixed top-0 right-0 h-full w-full md:w-[600px] bg-white shadow-lg z-20 transform ${
-          isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+          (miniCart) ? 'translate-x-0' : 'translate-x-full'
         } transition-transform duration-300 overflow-scroll`}
       >
         <button
@@ -35,7 +37,7 @@ const SideCart = ({ isSidebarOpen, toggleSidebar, cart }) => {
         </div>
       </div>
 
-      {isSidebarOpen && (
+      {miniCart && (
         <div
           className='fixed inset-0 bg-black bg-opacity-50 z-10'
           onClick={toggleSidebar}

@@ -4,7 +4,7 @@ import { getLocalCart, setLocalCart } from '../utils/cartLocalStorage'
 import { findItem } from '../store/products/products'
 import SingleCartItemBtn from '../components/CartDetails/SingleCartItemBtn'
 import AppLayout from '../Layout/AppLayout'
-import { addToCart } from '../store/cart/cart'
+import { addToCart, toggleMiniCart } from '../store/cart/cart'
 import { findProductById } from '../utils/findProduct'
 
 const Detail = () => {
@@ -52,6 +52,7 @@ const Detail = () => {
 
     setLocalCart(item, variationKey)
     dispatch(addToCart({documentId: item.id, variationKey, quantity, product}))
+    dispatch(toggleMiniCart())
   }
 
   return (

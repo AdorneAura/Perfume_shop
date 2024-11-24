@@ -4,7 +4,8 @@ import { findProductById } from '../../utils/findProduct';
 const cartSlice = createSlice({
   name: 'cartSlice',
   initialState: {
-    cart: []
+    cart: [],
+    visibleMini: false,
   },
   reducers: {
     addToCart: (state, action) => {
@@ -71,6 +72,9 @@ const cartSlice = createSlice({
       )
       if (targetItem && targetItem.variation[variationKey].quantity > 1)
         targetItem.variation[variationKey].quantity -= 1
+    },
+    toggleMiniCart: (state) => {
+      state.visibleMini =!state.visibleMini
     }
   }
 })
@@ -80,6 +84,7 @@ export const {
   populateCart,
   removeFromCart,
   increaseQuantity,
-  decreaseQuantity
+  decreaseQuantity,
+  toggleMiniCart
 } = cartSlice.actions
 export default cartSlice.reducer

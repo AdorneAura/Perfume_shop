@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import logo from '../../assets/logo.png'
 import { FaShoppingCart, FaSearch } from 'react-icons/fa'
 import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import SideCart from './SideCart'
+import { toggleMiniCart } from '../../store/cart/cart'
 
 const Navbar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const cart = useSelector(store => store.cart.cart)
+  const dispatch = useDispatch()
 
-  const toggleSidebar = () => setIsSidebarOpen(prev => !prev)
+  const toggleSidebar = () => dispatch(toggleMiniCart())
 
   return (
     <>
@@ -42,7 +43,6 @@ const Navbar = () => {
         </div>
       </nav>
       <SideCart
-        isSidebarOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar}
         cart={cart}
       />
