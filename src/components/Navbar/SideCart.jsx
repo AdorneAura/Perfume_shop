@@ -28,6 +28,7 @@ const SideCart = ({ toggleSidebar, cart }) => {
               <CartDetails />
               <NavLink
                 to={'/cart'}
+                onClick={toggleSidebar}
                 className={`font-bold border border-black text-[20px] bg-black text-white p-2 rounded hover:text-black hover:bg-white transition-all`}
               >
                 Checkout
