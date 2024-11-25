@@ -25,9 +25,13 @@ const Banner = () => {
     )
   }
 
-  if(banners.length <= 0) {
-    return <></>
-  } 
+  if (banners.length <= 0) {
+    return (
+      <div className='mx-auto py-[55px]'>
+        <CarouselLoader size={150} />
+      </div>
+    )
+  }
 
   return (
     <div className='relative w-full overflow-hidden'>
