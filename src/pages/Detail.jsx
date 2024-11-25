@@ -15,7 +15,6 @@ const Detail = () => {
 
   const dispatch = useDispatch()
   const product = useSelector(store => store.products.singleProduct)
-  console.log(useSelector(store => store.products))
 
   useEffect(() => {
     if (product && Object.keys(product.inventory).length > 0) {

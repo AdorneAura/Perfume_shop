@@ -10,7 +10,6 @@ export const filterKeyValuePairs = (arr, keysToKeep) => {
 }
 
 export const sumCartPrice = cart => {
-  console.log(cart)
   let totalAmount = 0
   for (let i = 0; i < cart.length; i += 1) {
     const nestedCart = Object.keys(cart[i].variation)
