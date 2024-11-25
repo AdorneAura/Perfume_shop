@@ -5,7 +5,7 @@ const SingleProduct = ({ product }) => (
   <NavLink
     to={`/product/${product.documentId}`}
     className='w-full max-w-[300px] p-4 flex flex-col justify-center items-center shadow-md hover:shadow-xl transition-shadow duration-300 bg-white rounded-lg'
-  >
+  > 
     <img
       src={product.imgUrl}
       alt={product.title}
