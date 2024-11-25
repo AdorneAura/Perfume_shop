@@ -4,15 +4,25 @@ import { NavLink } from 'react-router-dom'
 const SingleProduct = ({ product }) => (
   <NavLink
     to={`/product/${product.documentId}`}
-    className='max-w-[300px] pb-[30px] flex flex-col justify-center items-center shadow-2xl'
+    className='w-full max-w-[300px] p-4 flex flex-col justify-center items-center shadow-md hover:shadow-xl transition-shadow duration-300 bg-white rounded-lg'
   >
-    <img src={product.imgUrl} alt={product.title} className='mb-[10px]' />
-    <h2 className='text-center text-3xl'>{product.title}</h2>
-    <div className='flex items-end gap-3'>
+    <img
+      src={product.imgUrl}
+      alt={product.title}
+      className='mb-4 w-full h-[200px] object-cover rounded-md'
+    />
+    <h2 className='text-center text-lg font-semibold md:text-xl lg:text-2xl'>
+      {product.title}
+    </h2>
+    <div className='flex items-end gap-2 mt-2'>
       {product.oldPrice > 0 && (
-        <span className='text-red-600 line-through'>{product.oldPrice}Rs</span>
+        <span className='text-sm md:text-base text-red-600 line-through'>
+          {product.oldPrice} Rs
+        </span>
       )}
-      <p className='text-yellow-500 text-xl font-bold'>{product.price}Rs</p>
+      <p className='text-yellow-500 text-base md:text-lg lg:text-xl font-bold'>
+        {product.price} Rs
+      </p>
     </div>
   </NavLink>
 )
