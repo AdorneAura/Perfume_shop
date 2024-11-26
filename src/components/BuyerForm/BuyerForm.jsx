@@ -8,6 +8,7 @@ import { mergeArrays, updateRemainingQuantities } from '../../utils/findProduct'
 import { addUpdatedList } from '../../store/products/products'
 import emailjs from '@emailjs/browser'
 import PurchaseLoader from './PurchaseLoader'
+import { clearCart } from '../../store/cart/cart'
 
 const BuyerForm = ({ products }) => {
   const cart = useSelector(store => store.cart.cart)
@@ -64,6 +65,7 @@ const BuyerForm = ({ products }) => {
             dispatch(addUpdatedList(updatedProductList))
             clearLocStore()
             setLoading(false)
+            dispatch(clearCart())
             navigate('/success')
           },
           error => {

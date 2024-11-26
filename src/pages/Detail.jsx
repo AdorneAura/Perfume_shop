@@ -6,6 +6,7 @@ import SingleCartItemBtn from '../components/CartDetails/SingleCartItemBtn'
 import AppLayout from '../Layout/AppLayout'
 import { addToCart, toggleMiniCart } from '../store/cart/cart'
 import { findProductById } from '../utils/findProduct'
+import Loader from './Loader'
 
 const Detail = () => {
   const id = window.location.pathname.split('/')[2]
@@ -15,6 +16,7 @@ const Detail = () => {
 
   const dispatch = useDispatch()
   const product = useSelector(store => store.products.singleProduct)
+  const products = useSelector(store => store.products.products)
 
   useEffect(() => {
     if (product && Object.keys(product.inventory).length > 0) {
@@ -22,14 +24,12 @@ const Detail = () => {
       setSelectedVariation(defaultVariation)
     }
   }, [product])
-console.log(product)
   // Fetch product details
   useEffect(() => {
-    console.log(id)
     if (id) {
       dispatch(findItem({ id }))
     }
-  }, [id, dispatch])
+  }, [id, dispatch, products])
 
   const handleVariationSelect = variation => {
     setSelectedVariation(variation)
@@ -123,7 +123,7 @@ console.log(product)
           </div>
         </>
       ) : (
-        <span>Loading...</span>
+        <Loader />
       )}
     </div>
   )
