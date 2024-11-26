@@ -22,9 +22,10 @@ const Detail = () => {
       setSelectedVariation(defaultVariation)
     }
   }, [product])
-
+console.log(product)
   // Fetch product details
   useEffect(() => {
+    console.log(id)
     if (id) {
       dispatch(findItem({ id }))
     }

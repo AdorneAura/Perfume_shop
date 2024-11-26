@@ -4,6 +4,8 @@ import { Routes, Route } from 'react-router-dom'
 import Loader from './pages/Loader'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProducts } from './store/products/products'
+import { extractProducts } from './utils/findProduct'
+import { populateCart } from './store/cart/cart'
 
 const Home = React.lazy(() => import('./pages/Home'))
 const Detail = React.lazy(() => import('./pages/Detail'))
@@ -15,9 +17,13 @@ const App = () => {
   const renderCount = useRef(0)
 
   const prod = async () => {
-    dispatch(fetchProducts()).then(res => {
+    dispatch(fetchProducts())
+    .then(res => {
       if (res.type === 'FETCH_PRODUCTS/fulfilled') {
-        setupCartItems(res.payload[1].data.data)
+        const products = res.payload[1].data.data
+        const lclCartItems = getLocalCart()
+        const ep = extractProducts(lclCartItems, products)
+        dispatch(populateCart(ep))
       }
     })
   }
