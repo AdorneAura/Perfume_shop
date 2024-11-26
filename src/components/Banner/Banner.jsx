@@ -27,7 +27,7 @@ const Banner = () => {
 
   if (banners.length <= 0) {
     return (
-      <div className='mx-auto py-[55px]'>
+      <div className='w-full flex justify-center items-center py-[60px]'>
         <CarouselLoader size={150} />
       </div>
     )

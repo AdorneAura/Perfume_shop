@@ -2,7 +2,6 @@ import React from 'react'
 import CartDetails from '../components/CartDetails/CartDetails'
 import BuyerForm from '../components/BuyerForm/BuyerForm'
 import { useSelector } from 'react-redux'
-import Navbar from '../components/Navbar/Navbar'
 import AppLayout from '../Layout/AppLayout'
 
 const Cart = () => {
