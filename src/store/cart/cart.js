@@ -54,7 +54,7 @@ const cartSlice = createSlice({
       state.cart = res
     },
     clearCart: () => {
-      return { cart: [] }
+      return { cart: [], visibleMini: false }
     },
     increaseQuantity: (state, action) => {
       const { documentId } = action.payload.item
@@ -83,6 +83,7 @@ export const {
   addToCart,
   populateCart,
   removeFromCart,
+  clearCart,
   increaseQuantity,
   decreaseQuantity,
   toggleMiniCart
