@@ -25,9 +25,13 @@ const Banner = () => {
     )
   }
 
-  if(banners.length <= 0) {
-    return <></>
-  } 
+  if (banners.length <= 0) {
+    return (
+      <div className='w-full flex justify-center items-center py-[60px]'>
+        <CarouselLoader size={150} />
+      </div>
+    )
+  }
 
   return (
     <div className='relative w-full overflow-hidden'>
@@ -37,14 +41,18 @@ const Banner = () => {
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {banners.length > 0 ? (
-          banners.map((image, index) => (
-            <img
-              key={index}
-              src={image.ImgUrl}
-              alt={`Slide ${index + 1}`}
-              className='w-full flex-shrink-0'
-            />
-          ))
+          banners.map((image, index) => {
+            if(image.display) {
+              return (
+                <img
+                  key={index}
+                  src={image.ImgUrl}
+                  alt={`Slide ${index + 1}`}
+                  className={`w-full flex-shrink-0 ${banners.length > 0 ? 'visible' : 'hidden'} transition-all duration-500`}
+                />
+              )
+            } return ''
+          })
         ) : (
           <div className='mx-auto py-[55px]'>
             <CarouselLoader size={150} />

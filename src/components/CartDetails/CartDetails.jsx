@@ -31,36 +31,52 @@ const CartDetails = () => {
     )
   }
 
-  const priceDetail = [
-    { id: 1, title: 'Subtotal', price: sumCartPrice(cartItems) },
-    { id: 2, title: 'Delivery Service', price: 0 }
-  ]
+  let priceDetail = []
+
+  useEffect(() => {
+    if (renderCount.current === 0) {
+      priceDetail = [
+        ...priceDetail,
+        { id: 1, title: 'Subtotal', price: sumCartPrice(cartItems) },
+        { id: 2, title: 'Delivery Service', price: 0 }
+      ]
+      renderCount.current++
+    }
+  }, [cartItems, cartItems[0].title])
 
   return (
     <>
-      <ul className='flex flex-col items-start sm-w-[300px] mt-[60px] gap-4'>
-        {cartItems.map(item => (
-          <SingleCartItem
-            key={`${item.documentId}-${item.variationKey}`}
-            item={item}
-            handleItemCounter={handleItemCounter}
-          />
-        ))}
-        {cartItems.length > 0 && (
-          <>
-            <div className='flex justify-end w-full'>
-              <div className='border border-black border-dashed w-[300px] mr-3' />
-            </div>
-            {priceDetail.map(pD => (
-              <CartPriceDetail key={pD.id} title={pD.title} value={pD.price} />
+      {cartItems.length > 0 && cartItems[0].title && (
+        <>
+          <ul className='flex flex-col items-start sm-w-[300px] mt-[60px] gap-4'>
+            {cartItems.map(item => (
+              <SingleCartItem
+                key={`${item.documentId}-${item.variationKey}`}
+                item={item}
+                handleItemCounter={handleItemCounter}
+              />
             ))}
-            <GrandTotal
-              title={'Grand Total:'}
-              value={sumCartPrice(cartItems)}
-            />
-          </>
-        )}
-      </ul>
+            {cartItems.length > 0 && (
+              <>
+                <div className='flex justify-end w-full'>
+                  <div className='border border-black border-dashed w-[300px] mr-3' />
+                </div>
+                {priceDetail.map(pD => (
+                  <CartPriceDetail
+                    key={pD.id}
+                    title={pD.title}
+                    value={pD.price}
+                  />
+                ))}
+                <GrandTotal
+                  title={'Grand Total:'}
+                  value={sumCartPrice(cartItems)}
+                />
+              </>
+            )}
+          </ul>
+        </>
+      )}
     </>
   )
 }
