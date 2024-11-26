@@ -41,14 +41,18 @@ const Banner = () => {
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         {banners.length > 0 ? (
-          banners.map((image, index) => (
-            <img
-              key={index}
-              src={image.ImgUrl}
-              alt={`Slide ${index + 1}`}
-              className='w-full flex-shrink-0'
-            />
-          ))
+          banners.map((image, index) => {
+            if(image.display) {
+              return (
+                <img
+                  key={index}
+                  src={image.ImgUrl}
+                  alt={`Slide ${index + 1}`}
+                  className={`w-full flex-shrink-0 ${banners.length > 0 ? 'visible' : 'hidden'} transition-all duration-500`}
+                />
+              )
+            } return ''
+          })
         ) : (
           <div className='mx-auto py-[55px]'>
             <CarouselLoader size={150} />
