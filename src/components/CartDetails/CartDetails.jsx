@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getLocalCart, setLocalCart } from '../../utils/cartLocalStorage'
 import { extractProducts } from '../../utils/findProduct'
@@ -13,6 +13,7 @@ import CartPriceDetail from './CartPriceDetail'
 import GrandTotal from './GrandTotal'
 
 const CartDetails = () => {
+  const [priceDtl, setPriceDtl] = useState([])
   const cartItems = useSelector(store => store.cart.cart)
   const dispatch = useDispatch()
   const renderCount = useRef(0)
@@ -33,20 +34,20 @@ const CartDetails = () => {
 
   let priceDetail = []
 
-  useEffect(() => {
-    if (renderCount.current === 0) {
-      priceDetail = [
-        ...priceDetail,
-        { id: 1, title: 'Subtotal', price: sumCartPrice(cartItems) },
-        { id: 2, title: 'Delivery Service', price: 0 }
-      ]
-      renderCount.current++
-    }
-  }, [cartItems, cartItems[0].title])
+  // useEffect(() => {
+  //   if (renderCount.current === 0) {
+  //     setPriceDtl([
+  //       ...priceDetail,
+  //       { id: 1, title: 'Subtotal', price: sumCartPrice(cartItems) },
+  //       { id: 2, title: 'Delivery Service', price: 0 }
+  //     ])
+  //     renderCount.current++
+  //   }
+  // }, [cartItems, cartItems[0]?.title])
 
   return (
     <>
-      {cartItems.length > 0 && cartItems[0].title && (
+      {cartItems.length > 0 && cartItems[0].title ? (
         <>
           <ul className='flex flex-col items-start sm-w-[300px] mt-[60px] gap-4'>
             {cartItems.map(item => (
@@ -61,13 +62,13 @@ const CartDetails = () => {
                 <div className='flex justify-end w-full'>
                   <div className='border border-black border-dashed w-[300px] mr-3' />
                 </div>
-                {priceDetail.map(pD => (
+                {/* {priceDtl.map(pD => (
                   <CartPriceDetail
                     key={pD.id}
                     title={pD.title}
                     value={pD.price}
                   />
-                ))}
+                ))} */}
                 <GrandTotal
                   title={'Grand Total:'}
                   value={sumCartPrice(cartItems)}
@@ -76,7 +77,7 @@ const CartDetails = () => {
             )}
           </ul>
         </>
-      )}
+      ) : <></>}
     </>
   )
 }

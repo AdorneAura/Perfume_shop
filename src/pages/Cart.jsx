@@ -3,6 +3,7 @@ import CartDetails from '../components/CartDetails/CartDetails'
 import BuyerForm from '../components/BuyerForm/BuyerForm'
 import { useSelector } from 'react-redux'
 import AppLayout from '../Layout/AppLayout'
+import Loader from './Loader'
 
 const Cart = () => {
   const products = useSelector(store => store.products.products)
@@ -16,7 +17,7 @@ const Cart = () => {
             <BuyerForm products={products} />
           </>
         ) : (
-          <p>Loading...</p>
+          <Loader />
         )}
       </div>
     </>
