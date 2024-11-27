@@ -6,11 +6,11 @@ import AppLayout from '../Layout/AppLayout'
 
 const Home = () => {
   return (
-    <>
+    <div>
       <Banner />
       <Products/>
       <Footer />
-    </>
+    </div>
   )
 }
 

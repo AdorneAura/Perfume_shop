@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 const SingleProduct = ({ product }) => (
   <NavLink
     to={`/product/${product.documentId}`}
-    className='w-full h-full max-w-[300px] p-4 flex flex-col justify-center items-center shadow-md hover:shadow-xl transition-shadow duration-300 bg-white rounded-lg'
+    className='w-full h-full max-w-[300px] p-4 flex flex-col justify-between items-center shadow-xl shadow-yellow-500 hover:shadow-xl transition-shadow duration-300 rounded-lg'
   > 
     <img
       src={product.imgUrl}
