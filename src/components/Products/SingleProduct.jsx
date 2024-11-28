@@ -17,11 +17,11 @@ const SingleProduct = ({ product }) => (
     <div className='flex items-end gap-2 mt-2'>
       {product.oldPrice > 0 && (
         <span className='text-sm md:text-base text-red-600 line-through'>
-          {product.oldPrice} Rs
+          Rs {product.oldPrice}
         </span>
       )}
       <p className='text-yellow-500 text-base md:text-lg lg:text-xl font-bold'>
-        {product.price} Rs
+      Rs {product.price}
       </p>
     </div>
   </NavLink>
