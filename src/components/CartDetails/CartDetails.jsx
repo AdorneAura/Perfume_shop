@@ -32,7 +32,8 @@ const CartDetails = () => {
     )
   }
 
-  let priceDetail = []
+  let priceDetail = [{ id: 1, title: 'Subtotal', price: sumCartPrice(cartItems)},
+                     { id: 2, title: 'Delivery Service', price: 200 }]
 
   // useEffect(() => {
   //   if (renderCount.current === 0) {
@@ -62,16 +63,16 @@ const CartDetails = () => {
                 <div className='flex justify-end w-full'>
                   <div className='border border-black border-dashed w-[300px] mr-3' />
                 </div>
-                {/* {priceDtl.map(pD => (
+                {priceDetail.map(pD => (
                   <CartPriceDetail
                     key={pD.id}
                     title={pD.title}
                     value={pD.price}
                   />
-                ))} */}
+                ))}
                 <GrandTotal
                   title={'Grand Total:'}
-                  value={sumCartPrice(cartItems)}
+                  value={sumCartPrice(cartItems) + priceDetail[1].price}
                 />
               </>
             )}
