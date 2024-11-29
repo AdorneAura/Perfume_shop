@@ -176,7 +176,9 @@ const Detail = () => {
           </div>
         </>
       ) : (
-        <Loader />
+        <div className='flex justify-center items-center w-full'>
+          <Loader />
+        </div>
       )}
     </div>
   )
