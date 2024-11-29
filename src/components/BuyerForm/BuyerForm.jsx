@@ -6,20 +6,11 @@ import { useNavigate } from 'react-router-dom'
 import { clearLocStore, getLocalCart } from '../../utils/cartLocalStorage'
 import { mergeArrays, updateRemainingQuantities } from '../../utils/findProduct'
 import { addUpdatedList } from '../../store/products/products'
-// import emailjs from '@emailjs/browser';
 import PurchaseLoader from './PurchaseLoader'
 import { clearCart } from '../../store/cart/cart'
 import formInputs from './formInputs'
 import { formatAddress } from '../../utils/formatAddress'
 import InputField from './InputField'
-
-// const sendEmail = (form, onSuccess, onError) => {
-//   emailjs
-//     .sendForm('service_ps4kang', 'template_hk7guyr', form.current, {
-//       publicKey: 'uIy-8GW2FoOUjfP2m',
-//     })
-//     .then(onSuccess, onError);
-// };
 
 const BuyerForm = ({ products }) => {
   const cart = useSelector(store => store.cart.cart)
