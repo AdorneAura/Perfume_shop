@@ -24,6 +24,7 @@ const Detail = () => {
       setSelectedVariation(defaultVariation)
     }
   }, [product])
+  console.log(product)
 
   useEffect(() => {
     if (id) {
