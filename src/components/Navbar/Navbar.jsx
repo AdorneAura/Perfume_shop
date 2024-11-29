@@ -16,11 +16,11 @@ const Navbar = () => {
   return (
     <>
       <nav className='flex justify-between items-center px-7 h-[97px] bg-black fixed top-0 left-0 right-0 z-10'>
-        <NavLink to={'/'} className='mr-1 w-[100px]'>
+        <NavLink to={'/'} className='mr-3 w-[100px]'>
           <img src={logo} alt='adorn aura logo' className='w-[100px]' />
         </NavLink>
-        <div className='flex items-center gap-5'>
-          <form className='flex items-center gap-3'>
+        <div className='flex items-center gap-1'>
+          <form className='flex items-center gap-1 relative'>
             <input
               type='text'
               placeholder='Search...'
@@ -32,10 +32,10 @@ const Navbar = () => {
           </form>
           <button
             onClick={toggleSidebar}
-            className='text-white text-[30px] relative'
+            className='ml-1 text-white text-[25px] relative'
           >
             {cart.length > 0 && (
-              <span className='bg-red-500 text-white text-[8px] font-bold rounded-[50%] py-1 px-2 absolute top-[-6px] left-[25px]'>
+              <span className='bg-red-500 text-white text-[8px] font-bold rounded-[50%] py-1 px-2 absolute top-[-6px] left-[20px]'>
                 {cart.length}
               </span>
             )}
