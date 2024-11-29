@@ -1,86 +1,76 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { getLocalCart, setLocalCart } from '../../utils/cartLocalStorage'
-import { extractProducts } from '../../utils/findProduct'
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setLocalCart } from '../../utils/cartLocalStorage';
 import {
   increaseQuantity,
   decreaseQuantity,
-  populateCart
-} from '../../store/cart/cart'
-import SingleCartItem from './SingleCartItem'
-import { sumCartPrice } from '../../utils/commonFun'
-import CartPriceDetail from './CartPriceDetail'
-import GrandTotal from './GrandTotal'
+} from '../../store/cart/cart';
+import SingleCartItem from './SingleCartItem';
+import { sumCartPrice } from '../../utils/commonFun';
+import CartPriceDetail from './CartPriceDetail';
+import GrandTotal from './GrandTotal';
 
 const CartDetails = () => {
-  const [priceDtl, setPriceDtl] = useState([])
-  const cartItems = useSelector(store => store.cart.cart)
-  const dispatch = useDispatch()
-  const renderCount = useRef(0)
+  const cartItems = useSelector((store) => store.cart.cart);
+  const dispatch = useDispatch();
 
   const handleItemCounter = (item, variationKey, operator) => {
-    let quantity = operator === '-' ? -1 : +1
+    let quantity = operator === '-' ? -1 : +1;
     const updatedItem = {
       id: item.documentId,
-      variation: { [variationKey]: { quantity } }
-    }
-    setLocalCart(updatedItem, variationKey)
+      variation: { [variationKey]: { quantity } },
+    };
+    setLocalCart(updatedItem, variationKey);
     dispatch(
       operator === '+'
         ? increaseQuantity({ item, variationKey })
         : decreaseQuantity({ item, variationKey })
-    )
-  }
+    );
+  };
 
-  let priceDetail = [{ id: 1, title: 'Subtotal', price: sumCartPrice(cartItems)},
-                     { id: 2, title: 'Delivery Service', price: 200 }]
-
-  // useEffect(() => {
-  //   if (renderCount.current === 0) {
-  //     setPriceDtl([
-  //       ...priceDetail,
-  //       { id: 1, title: 'Subtotal', price: sumCartPrice(cartItems) },
-  //       { id: 2, title: 'Delivery Service', price: 0 }
-  //     ])
-  //     renderCount.current++
-  //   }
-  // }, [cartItems, cartItems[0]?.title])
+  let priceDetail = [
+    { id: 1, title: 'Subtotal', price: sumCartPrice(cartItems) },
+    { id: 2, title: 'Delivery Service', price: 200 },
+  ];
 
   return (
-    <>
-      {cartItems.length > 0 && cartItems[0].title ? (
-        <>
-          <ul className='flex flex-col items-start sm-w-[300px] mt-[60px] gap-4'>
-            {cartItems.map(item => (
-              <SingleCartItem
-                key={`${item.documentId}-${item.variationKey}`}
-                item={item}
-                handleItemCounter={handleItemCounter}
-              />
-            ))}
-            {cartItems.length > 0 && (
-              <>
-                <div className='flex justify-end w-full'>
-                  <div className='border border-black border-dashed w-[300px] mr-3' />
-                </div>
-                {priceDetail.map(pD => (
-                  <CartPriceDetail
-                    key={pD.id}
-                    title={pD.title}
-                    value={pD.price}
-                  />
-                ))}
-                <GrandTotal
-                  title={'Grand Total:'}
-                  value={sumCartPrice(cartItems) + priceDetail[1].price}
+    <div className="container mx-auto mt-12 px-4">
+      {cartItems.length > 0 && (
+        <div className="flex flex-col gap-4 items-end">
+          {/* Cart Items */}
+          <div className="lg:col-span-2 w-full">
+            <ul className="space-y-4">
+              {cartItems.map((item, index) => (
+                <SingleCartItem
+                  key={`${item.documentId}-${index}`}
+                  item={item}
+                  handleItemCounter={handleItemCounter}
                 />
-              </>
-            )}
-          </ul>
-        </>
-      ) : <></>}
-    </>
-  )
-}
+              ))}
+            </ul>
+          </div>
 
-export default CartDetails
+          {/* Price Details */}
+          <div className="bg-gray-100 rounded-lg w-[max-content] p-6 shadow-md flex flex-col justify-center items-start">
+            <h3 className="text-lg font-bold mb-4">Cart Totals</h3>
+            <div className="space-y-4">
+              {priceDetail.map((pD) => (
+                <CartPriceDetail
+                  key={pD.id}
+                  title={pD.title}
+                  value={pD.price}
+                />
+              ))}
+              <GrandTotal
+                title={'Grand Total:'}
+                value={sumCartPrice(cartItems) + priceDetail[1].price}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CartDetails;
