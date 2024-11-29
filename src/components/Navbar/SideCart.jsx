@@ -22,7 +22,7 @@ const SideCart = ({ toggleSidebar, cart }) => {
         <h2 className='text-xl font-bold p-4'>Your Cart</h2>
         <div>
           {cart.length === 0 ? (
-            <p>Your cart is empty</p>
+            <p className='ml-4'>Your cart is empty</p>
           ) : (
             <div className='flex flex-wrap justify-end gap-3'>
               <CartDetails />
