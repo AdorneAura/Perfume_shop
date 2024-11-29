@@ -1,5 +1,6 @@
 import pkg from '../../assets/package.png'
 import truck from '../../assets/truck.png'
+import globe from '../../assets/globe.png'
 import greenTick from '../../assets/greenTick.png'
 
 export default [
@@ -15,6 +16,11 @@ export default [
   },
   {
     id: '3',
+    icon: globe,
+    title: 'Easy 14 days return'
+  },
+  {
+    id: '4',
     icon: greenTick,
     title: 'Product ready to ship'
   }

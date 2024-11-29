@@ -81,7 +81,7 @@ const Detail = () => {
           <div className='flex-1'>
             <h1 className='text-4xl font-bold mb-4'>{product.title}</h1>
             <p className='text-gray-600 text-sm mb-6'>{product.description}</p>
-            <ul className='flex flex-col mb-[40px] border-y-2 border-black py-2'>
+            <ul className='flex flex-col gap-2 mb-[40px] border-y-2 border-black py-5'>
               {detailIcons.map(icon => (
                 <DetailIcon key={icon.title} icon={icon} />
               ))}
