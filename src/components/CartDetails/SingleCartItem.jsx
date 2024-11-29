@@ -15,49 +15,50 @@ const SingleCartItem = ({ item, handleItemCounter }) => {
   return (
     <li key={`${item.documentId}-${item.variationKey}`}>
       <ul>
-        {Object.keys(item.variation).map(variationKey => (
+        {Object.keys(item.variation).map((variationKey, index) => (
           <li
-            key={`${item.documentId}-${variationKey}`}
-            className='flex flex-col justify-center items-center gap-4 p-3'
+            key={variationKey + index}
+            className='border p-4 rounded-lg flex flex-col lg:flex-row justify-between items-center gap-4 shadow-sm bg-white'
           >
-            <div className='flex flex-wrap justify-center items-center border p-3 gap-1'>
-              <button
-                type='button'
-                onClick={() => removeItem(item.documentId, variationKey)}
-                className='text-lg font-bold'
-              >
-                X
-              </button>
-              <img src={item.imgUrl} alt={item.title} className='w-20 rounded-[50%]' />
-              <h3 className='w-[100px]'>{item.title}</h3>
-              <p className='w-[100px] flex flex-wrap'>
-                <span>Variant:</span> {variationKey}
-              </p>
-              <p className='w-[100px]'>
+            <img
+              src={item.imgUrl}
+              alt={item.title}
+              className='w-20 h-20 rounded-lg object-cover'
+            />
+            <div className='flex flex-col flex-grow text-center lg:text-left'>
+              <h3 className='text-lg font-semibold'>{item.title}</h3>
+              <p className='text-sm text-gray-600'>Variant: {variationKey}</p>
+              <p className='text-sm font-medium'>
                 Price: {item.inventory[variationKey].newPrice}
               </p>
-              <div className='w-[100px] justify-self-end'>
-                <div className='flex gap-2'>
-                  <SingleCartItemBtn
-                    id={item.documentId + '-/-' + variationKey}
-                    text={'-'}
-                    handleItemCounter={() =>
-                      handleItemCounter(item, variationKey, '-')
-                    }
-                    disabled={item.variation[variationKey].quantity <= 1}
-                  />
-                  <p>{item.variation[variationKey].quantity}</p>
-                  <SingleCartItemBtn
-                    id={item.documentId + '-/-' + variationKey}
-                    text={'+'}
-                    handleItemCounter={() =>
-                      handleItemCounter(item, variationKey, '+')
-                    }
-                    disabled={item.variation[variationKey].quantity >= 10}
-                  />
-                </div>
-              </div>
             </div>
+            <div className='flex items-center space-x-2'>
+              <SingleCartItemBtn
+                id={item.documentId + '-/-' + item.variationKey}
+                text={'-'}
+                handleItemCounter={() =>
+                  handleItemCounter(item, variationKey, '-')
+                }
+                disabled={item.variation[variationKey].quantity <= 1}
+              />
+              <span className='font-medium'>
+                {item.variation[variationKey].quantity}
+              </span>
+              <SingleCartItemBtn
+                id={item.documentId + '-/-' + variationKey}
+                text={'+'}
+                handleItemCounter={() =>
+                  handleItemCounter(item, variationKey, '+')
+                }
+                disabled={item.variation[variationKey].quantity >= 10}
+              />
+            </div>
+            <button
+              className='text-red-600 font-bold hover:text-red-800'
+              onClick={() => removeItem(item.documentId, variationKey)}
+            >
+              X
+            </button>
           </li>
         ))}
       </ul>

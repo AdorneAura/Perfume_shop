@@ -1,124 +1,166 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getLocalCart, setLocalCart } from '../utils/cartLocalStorage'
-import { findItem } from '../store/products/products'
-import SingleCartItemBtn from '../components/CartDetails/SingleCartItemBtn'
-import AppLayout from '../Layout/AppLayout'
-import { addToCart, toggleMiniCart } from '../store/cart/cart'
-import { findProductById } from '../utils/findProduct'
-import Loader from './Loader'
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLocalCart, setLocalCart } from '../utils/cartLocalStorage';
+import { findItem } from '../store/products/products';
+import SingleCartItemBtn from '../components/CartDetails/SingleCartItemBtn';
+import AppLayout from '../Layout/AppLayout';
+import { addToCart, toggleMiniCart } from '../store/cart/cart';
+import Loader from './Loader';
 
 const Detail = () => {
-  const id = window.location.pathname.split('/')[2]
+  const id = window.location.pathname.split('/')[2];
+  const [quantity, setQuantity] = useState(1);
+  const [selectedVariation, setSelectedVariation] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const [quantity, setQuantity] = useState(1)
-  const [selectedVariation, setSelectedVariation] = useState(null)
-
-  const dispatch = useDispatch()
-  const product = useSelector(store => store.products.singleProduct)
-  const products = useSelector(store => store.products.products)
+  const dispatch = useDispatch();
+  const product = useSelector(store => store.products.singleProduct);
 
   useEffect(() => {
     if (product && Object.keys(product.inventory).length > 0) {
-      const defaultVariation = Object.keys(product.inventory)[0]
-      setSelectedVariation(defaultVariation)
+      const defaultVariation = Object.keys(product.inventory)[0];
+      setSelectedVariation(defaultVariation);
     }
-  }, [product])
-  // Fetch product details
+  }, [product]);
+
   useEffect(() => {
     if (id) {
-      dispatch(findItem({ id }))
+      dispatch(findItem({ id }));
     }
-  }, [id, dispatch, products])
+  }, [id, dispatch]);
 
   const handleVariationSelect = variation => {
-    setSelectedVariation(variation)
-    setQuantity(1)
-  }
+    setSelectedVariation(variation);
+    setQuantity(1);
+  };
 
   const handleQuantityChange = delta => {
-    setQuantity(prevQuantity => Math.max(1, prevQuantity + delta))
-  }
+    setQuantity(prevQuantity => Math.max(1, prevQuantity + delta));
+  };
 
   const addProductToCart = () => {
-    if (!selectedVariation || !product) return
+    if (!selectedVariation || !product) return;
 
-    const variationKey = selectedVariation
+    setLoading(true); // Start loading
+    const variationKey = selectedVariation;
     const item = {
       id: product.documentId,
       variation: {
         [variationKey]: { quantity }
       }
-    }
+    };
 
-    setLocalCart(item, variationKey)
-    dispatch(addToCart({documentId: item.id, variationKey, quantity, product}))
-    dispatch(toggleMiniCart())
-  }
+    setLocalCart(item, variationKey);
+
+    // Simulate network delay for smooth UX
+    setTimeout(() => {
+      dispatch(addToCart({ documentId: item.id, variationKey, quantity, product }));
+      dispatch(toggleMiniCart());
+      setLoading(false); // Stop loading
+    }, 1000);
+  };
 
   return (
-    <div className='product-detail flex flex-col md:flex-row md:p-[30px] justify-center items-center text-center text-[#636665] text-black gap-4 py-1 font-bold'>
+    <div className="flex flex-col lg:flex-row gap-10 px-6 py-8">
       {product ? (
         <>
-          <img
-            src={product.imgUrl}
-            alt={product.title}
-            className='max-w-[300px] md:max-w-[500px] my-[20px]'
-          />
-          <div className='flex flex-col items-center gap-1 md:max-w-[500px]'>
-            <h1 className='text-3xl font-bold'>{product.title}</h1>
-            <div className='flex flex-col items-center p-4 border m-[20px]'>
-              <h3 className='text-xl mb-4 p-1 underline underline-offset-2'>
-                Brief
-              </h3>
-              <p className='font-medium text-md text-justify'>
-                {product.description}
-              </p>
-            </div>
+          {/* Left Column: Product Image */}
+          <div className="flex-1 flex justify-center items-center">
+            <img
+              src={product.imgUrl}
+              alt={product.title}
+              className="max-w-full lg:max-w-[400px] rounded-lg shadow-lg"
+            />
+          </div>
+
+          {/* Right Column: Product Details */}
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold mb-4">{product.title}</h1>
+            <p className="text-gray-600 text-sm mb-6">{product.description}</p>
+
+            {/* Pricing Section */}
             {product?.inventory[selectedVariation]?.oldPrice && (
-              <div className='flex gap-2'>
-                Price: 
-                <span className='text-red-600 line-through'>
+              <div className="mb-6">
+                <span className="text-gray-500 line-through text-xl mr-2">
                   {product.inventory[selectedVariation].oldPrice} Rs
                 </span>
-                <span className='text-green-600 font-bold'>
+                <span className="text-green-600 text-2xl font-bold">
                   {product.inventory[selectedVariation].newPrice} Rs
                 </span>
               </div>
             )}
-            <div className='flex gap-1'>
-              {Object.keys(product.inventory).map(variation => (
-                <button
-                  key={variation}
-                  onClick={() => handleVariationSelect(variation)}
-                  className={`border border-black ${
-                    selectedVariation === variation
-                      ? 'bg-black text-white'
-                      : 'bg-white text-black'
-                  } hover:bg-black hover:text-white w-[80px] transition-all rounded`}
-                >
-                  {variation}
-                </button>
-              ))}
+
+            {/* Variation Selection */}
+            <div className="mb-6">
+              <h3 className="font-semibold text-lg mb-2">Select Size:</h3>
+              <div className="flex gap-2">
+                {Object.keys(product.inventory).map(variation => (
+                  <button
+                    key={variation}
+                    onClick={() => handleVariationSelect(variation)}
+                    className={`py-2 px-4 border rounded transition-all ${
+                      selectedVariation === variation
+                        ? 'bg-black text-white'
+                        : 'bg-gray-100 text-black'
+                    } hover:bg-black hover:text-white`}
+                  >
+                    {variation}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className='flex items-center gap-2'>
+
+            {/* Quantity Selection */}
+            <div className="flex items-center gap-4 mb-6">
+              <h3 className="font-semibold text-lg">Quantity:</h3>
               <SingleCartItemBtn
-                text='-'
+                text="-"
                 handleItemCounter={() => handleQuantityChange(-1)}
                 disabled={quantity <= 1}
               />
-              <p>{quantity}</p>
+              <span className="text-lg">{quantity}</span>
               <SingleCartItemBtn
-                text='+'
+                text="+"
                 handleItemCounter={() => handleQuantityChange(1)}
                 disabled={quantity >= 30}
               />
             </div>
+
+            {/* Add to Cart Button */}
             <button
-              className={`bg-black text-white p-1 w-[80%] my-4`}
+              className={`py-3 px-6 rounded w-full font-bold transition-all ${
+                loading ? 'bg-gray-500 cursor-not-allowed' : 'bg-black text-white hover:bg-gray-800'
+              }`}
               onClick={addProductToCart}
+              disabled={loading}
             >
-              Add to Cart
+              {loading ? (
+                <span className="flex justify-center items-center gap-2">
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    ></path>
+                  </svg>
+                  Adding...
+                </span>
+              ) : (
+                'Add to Cart'
+              )}
             </button>
           </div>
         </>
@@ -126,7 +168,7 @@ const Detail = () => {
         <Loader />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default AppLayout()(Detail)
+export default AppLayout()(Detail);

@@ -20,16 +20,16 @@ const SideCart = ({ toggleSidebar, cart }) => {
           ✖
         </button>
         <h2 className='text-xl font-bold p-4'>Your Cart</h2>
-        <div className='p-4'>
+        <div>
           {cart.length === 0 ? (
-            <p>Your cart is empty</p>
+            <p className='ml-4'>Your cart is empty</p>
           ) : (
             <div className='flex flex-wrap justify-end gap-3'>
               <CartDetails />
               <NavLink
                 to={'/cart'}
                 onClick={toggleSidebar}
-                className={`font-bold border border-black text-[20px] bg-black text-white p-2 rounded hover:text-black hover:bg-white transition-all`}
+                className={`font-bold border border-black text-[20px] bg-black text-white p-2 mx-4 rounded hover:text-black hover:bg-white transition-all`}
               >
                 Checkout
               </NavLink>
