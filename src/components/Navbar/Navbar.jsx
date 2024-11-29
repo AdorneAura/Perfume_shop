@@ -32,7 +32,7 @@ const Navbar = () => {
           </form>
           <button
             onClick={toggleSidebar}
-            className='ml-1 text-white text-[25px] relative'
+            className='ml-1 text-white text-[30px] relative'
           >
             {cart.length > 0 && (
               <span className='bg-red-500 text-white text-[8px] font-bold rounded-[50%] py-1 px-2 absolute top-[-6px] left-[20px]'>
