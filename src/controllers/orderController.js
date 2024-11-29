@@ -1,5 +1,6 @@
 import { API_TOKEN, BASE_URL } from '../Config'
 import axios from 'axios'
+import emailjs from '@emailjs/browser'
 
 export class OrderController {
   static async createOrder (data) {
@@ -28,6 +29,14 @@ export class OrderController {
       .catch(err => {
         return err
       })
+  }
+
+  static sendEmail (form, onSuccess, onError) {
+    emailjs
+      .sendForm('service_ps4kang', 'template_hk7guyr', form.current, {
+        publicKey: 'uIy-8GW2FoOUjfP2m'
+      })
+      .then(onSuccess, onError)
   }
 }
 
