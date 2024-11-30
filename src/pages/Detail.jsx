@@ -17,6 +17,7 @@ const Detail = () => {
 
   const dispatch = useDispatch()
   const product = useSelector(store => store.products.singleProduct)
+  const allProds = useSelector(store => store.products.products)
 
   useEffect(() => {
     if (product && Object.keys(product.inventory).length > 0) {
@@ -24,13 +25,12 @@ const Detail = () => {
       setSelectedVariation(defaultVariation)
     }
   }, [product])
-  console.log(product)
 
   useEffect(() => {
     if (id) {
       dispatch(findItem({ id }))
     }
-  }, [id, dispatch])
+  }, [id, dispatch, allProds])
 
   const handleVariationSelect = variation => {
     setSelectedVariation(variation)
