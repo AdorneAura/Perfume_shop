@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import SingleProduct from './SingleProduct'
 import { useSelector } from 'react-redux'
 import CategoryButton from './CategoryButton'
+import categories from './categories'
 
 const Products = () => {
   const products = useSelector(store => store.products.products)
@@ -13,10 +14,7 @@ const Products = () => {
         Our Products
       </h1>
       <div className='flex justify-end gap-3 px-3 mb-[50px]'>
-        {[
-          { id: 1, title: 'Perfumes' },
-          { id: 2, title: 'Bags' }
-        ].map(product => {
+        {categories.map(product => {
           return (
             <CategoryButton
               key={product.id}
