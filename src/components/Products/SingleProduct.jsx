@@ -11,7 +11,7 @@ const SingleProduct = ({ product }) => (
       alt={product.title}
       className='mb-4 w-full h-[200px] object-contain rounded-md'
     />
-    <h2 className='text-center text-lg font-semibold md:text-xl lg:text-2xl'>
+    <h2 className='text-center text-lg'>
       {product.title}
     </h2>
     <div className='flex items-end gap-2 mt-2'>

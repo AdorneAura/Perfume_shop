@@ -12,6 +12,7 @@ const Home = React.lazy(() => import('./pages/Home'))
 const Detail = React.lazy(() => import('./pages/Detail'))
 const Cart = React.lazy(() => import('./pages/Cart'))
 const Success = React.lazy(() => import('./pages/Success'))
+const TrackOrder = React.lazy(() => import('./pages/TrackOrder'))
 
 const App = () => {
   const dispatch = useDispatch()
@@ -43,6 +44,7 @@ const App = () => {
         <Route path='/product/:documentId' element={<Detail />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/success' element={<Success />} />
+        <Route path='/orders' element={<TrackOrder />} />
       </Routes>
     </Suspense>
   )

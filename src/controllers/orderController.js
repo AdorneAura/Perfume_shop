@@ -14,6 +14,17 @@ export class OrderController {
       .catch(err => err)
   }
 
+  static async getOrder (data) {
+    return await axios
+      .get(`${BASE_URL}/api/orders/`, {
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`
+        }
+      })
+      .then(res => res)
+      .catch(err => err)
+  }
+
   static updateProductQuantity (data) {
     return axios
       .post(`${BASE_URL}/api/products/:id`, data, {
